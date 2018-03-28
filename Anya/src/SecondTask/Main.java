@@ -1,3 +1,5 @@
+package SecondTask;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -6,7 +8,7 @@ public class Main {
     Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        Main app = new Main();
+        FirstTask.Main app = new FirstTask.Main();
         app.run();
     }
 

@@ -1,3 +1,5 @@
+import FirstTask.Main;
+
 import java.io.*;
 import java.util.List;
 import java.util.Scanner;
@@ -55,7 +57,7 @@ public class FirstSubTask {
              BufferedReader inInput = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(cryptogram)))) {
 
-            int[] key = Main.readKey(inKey.readLine());
+            int[] key = FirstTask.Main.readKey(inKey.readLine());
             StringBuilder text = Main.readText(inInput);
 
             int keyLength = key.length;

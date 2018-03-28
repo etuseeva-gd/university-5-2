@@ -8,7 +8,7 @@ public class SecondSubTask {
         try (BufferedReader inInput = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
              PrintWriter outGCD = new PrintWriter(new BufferedOutputStream(new FileOutputStream(outputGDC)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(output)))) {
-            StringBuilder text = Main.readText(inInput);
+            StringBuilder text = FirstTask.Main.readText(inInput);
 
             Set<Integer> test = new HashSet<>();
 
