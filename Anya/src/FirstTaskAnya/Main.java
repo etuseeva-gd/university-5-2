@@ -1,4 +1,4 @@
-package FirstTask;
+package FirstTaskAnya;
 
 import java.io.IOException;
 import java.util.Scanner;

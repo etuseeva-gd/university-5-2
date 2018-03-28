@@ -1,4 +1,4 @@
-package SecondTask;
+package SecondTaskAnya;
 
 import java.io.*;
 import java.util.ArrayList;

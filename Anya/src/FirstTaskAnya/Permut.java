@@ -1,4 +1,4 @@
-package FirstTask;
+package FirstTaskAnya;
 
 import java.util.ArrayList;
 import java.util.HashSet;

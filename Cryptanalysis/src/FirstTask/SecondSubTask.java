@@ -1,3 +1,5 @@
+package FirstTask;
+
 import java.io.*;
 import java.util.*;
 
@@ -8,7 +10,7 @@ public class SecondSubTask {
         try (BufferedReader inInput = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
              PrintWriter outGCD = new PrintWriter(new BufferedOutputStream(new FileOutputStream(outputGDC)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(output)))) {
-            StringBuilder text = FirstTask.Main.readText(inInput);
+            StringBuilder text = Main.readText(inInput);
 
             Set<Integer> test = new HashSet<>();
 

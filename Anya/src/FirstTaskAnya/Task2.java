@@ -1,6 +1,4 @@
-package FirstTask;
-
-import org.omg.PortableInterceptor.INACTIVE;
+package FirstTaskAnya;
 
 import java.io.*;
 import java.util.*;

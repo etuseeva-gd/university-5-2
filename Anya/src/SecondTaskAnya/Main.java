@@ -1,4 +1,4 @@
-package SecondTask;
+package SecondTaskAnya;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,7 +8,7 @@ public class Main {
     Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        FirstTask.Main app = new FirstTask.Main();
+        FirstTaskAnya.Main app = new FirstTaskAnya.Main();
         app.run();
     }
 

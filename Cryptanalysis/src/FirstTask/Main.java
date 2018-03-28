@@ -1,10 +1,12 @@
+package FirstTask;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        new FirstTask.Main().run();
+        new FirstTaskAnya.Main().run();
     }
 
     private void run() throws IOException {

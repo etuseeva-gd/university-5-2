@@ -1,4 +1,4 @@
-package FirstTask;
+package FirstTaskAnya;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
