@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        new FirstTaskAnya.Main().run();
+        new Main().run();
     }
 
     private void run() throws IOException {

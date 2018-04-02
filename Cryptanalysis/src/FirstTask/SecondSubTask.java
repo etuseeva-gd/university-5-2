@@ -4,22 +4,19 @@ import java.io.*;
 import java.util.*;
 
 public class SecondSubTask {
-    private static final String input = "input_1.2.txt", output = "output_1.2.txt", outputGDC = "output_gcd_1.2.txt";
+    private static final String input = "input_1.2.txt", output = "output_1.2.txt";
 
     public void init() throws IOException {
         try (BufferedReader inInput = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
-             PrintWriter outGCD = new PrintWriter(new BufferedOutputStream(new FileOutputStream(outputGDC)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(output)))) {
             StringBuilder text = Main.readText(inInput);
 
-            Set<Integer> test = new HashSet<>();
-
             int blockLen = 2;
+            Map<Integer, Integer> answer = new HashMap<>();
             while (blockLen < text.length() / 2 + 1) {
                 boolean findSameSubStr = false;
 
-                Map<Integer, Integer> pairs = new HashMap<>();
-
+                Set<Integer> distances = new HashSet<>();
                 for (int i = 0; i < text.length() - blockLen; i++) {
                     String firstSubStr = text.substring(i, i + blockLen);
                     for (int j = i + blockLen; j < text.length() - blockLen; j++) {
@@ -27,65 +24,33 @@ public class SecondSubTask {
 
                         if (firstSubStr.equals(secondSubStr)) {
                             findSameSubStr = true;
-
-                            int dist = j - i;
-                            if (pairs.containsKey(dist)) {
-                                pairs.put(dist, pairs.get(dist) + 1);
-                            } else {
-                                pairs.put(dist, 1);
-                            }
+                            distances.add(j - i);
                         }
                     }
                 }
 
-                int maxDist = 0;
-                for (int key : pairs.keySet()) {
-                    maxDist = Math.max(maxDist, pairs.get(key));
-                }
-
-                List<Integer> gcd = new ArrayList<>();
-                for (int key : pairs.keySet()) {
-                    if (pairs.get(key) >= maxDist / 2) {
-                        gcd.add(key);
+                Integer gcd = null; //@todo change
+                for (Integer distance : distances) {
+                    if (gcd == null) {
+                        gcd = distance;
+                    } else {
+                        gcd = this.gcd(gcd, distance);
                     }
                 }
-
-                Set<Integer> gcdOfPairs = new HashSet<>();
-                for (int i = 0; i < gcd.size(); i++) {
-                    for (int j = i + 1; j < gcd.size(); j++) {
-                        gcdOfPairs.add(this.gcd(gcd.get(i), gcd.get(j)));
-                    }
-                }
-
-                if (gcdOfPairs.size() != 0) {
-                    outGCD.print(blockLen + " : ");
-                    for (int gcdOfPair : gcdOfPairs) {
-                        test.add(gcdOfPair);
-                        outGCD.print(gcdOfPair + " ");
-                    }
-                    outGCD.println();
-                }
-
 
                 if (!findSameSubStr) {
                     break;
                 }
 
+                answer.put(blockLen, gcd);
                 blockLen++;
             }
 
-            List<Integer> gcd = new ArrayList<>(test);
-            Set<Integer> gcdOfPairs = new HashSet<>();
-            for (int i = 0; i < gcd.size(); i++) {
-                for (int j = 0; j < gcd.size(); j++) {
-                    gcdOfPairs.add(this.gcd(gcd.get(i), gcd.get(j)));
-                }
-            }
+            out.println("Длина, НОД:");
+            answer.forEach((key, value) -> {
+                out.println(key + ": " + value);
+            });
 
-            out.println("Возможная длина ключа: ");
-            for (int dist :  gcdOfPairs) {
-                out.print(dist + " ");
-            }
         }
 
     }
