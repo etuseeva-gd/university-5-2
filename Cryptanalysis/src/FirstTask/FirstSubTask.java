@@ -35,13 +35,7 @@ public class FirstSubTask {
         System.out.println("Ведите длину ключа:");
 
         int keyLength = scanner.nextInt();
-        int[] startPermutation = new int[keyLength];
-        for (int i = 0; i < keyLength; i++) {
-            startPermutation[i] = i;
-        }
-
-        MonocyclicPermutation monocyclicPermutation = new MonocyclicPermutation();
-        List<int[]> permutations = monocyclicPermutation.genMonocyclicPermutations(startPermutation, keyLength);
+        List<int[]> permutations = new MonocyclicPermutation().genKeys(keyLength);
 
         int start = 1, end = permutations.size() - 1;
         int index = start + (int) (Math.random() * (end - start + 1));

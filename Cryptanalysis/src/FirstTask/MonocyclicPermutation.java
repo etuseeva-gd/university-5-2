@@ -24,6 +24,14 @@ public class MonocyclicPermutation {
         return permutations;
     }
 
+    public List<int[]> genKeys(int n) {
+        int[] startPermutation = new int[n];
+        for (int i = 0; i < n; i++) {
+            startPermutation[i] = i;
+        }
+        return this.genMonocyclicPermutations(startPermutation, n);
+    }
+
     private void swap(int[] array, int a, int b) {
         int temp = array[a];
         array[a] = array[b];

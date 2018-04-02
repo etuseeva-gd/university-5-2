@@ -7,11 +7,11 @@ public class SecondSubTask {
     private static final String input = "input_1.2.txt", output = "output_1.2.txt";
 
     public void init() throws IOException {
-        try (BufferedReader inInput = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(output)))) {
-            StringBuilder text = Main.readText(inInput);
+            StringBuilder text = Main.readText(in);
 
-            int blockLen = 2;
+            int blockLen = 3;
             Map<Integer, Integer> answer = new HashMap<>();
             while (blockLen < text.length() / 2 + 1) {
                 boolean findSameSubStr = false;
@@ -29,7 +29,7 @@ public class SecondSubTask {
                     }
                 }
 
-                Integer gcd = null; //@todo change
+                Integer gcd = null;
                 for (Integer distance : distances) {
                     if (gcd == null) {
                         gcd = distance;
@@ -50,9 +50,7 @@ public class SecondSubTask {
             answer.forEach((key, value) -> {
                 out.println(key + ": " + value);
             });
-
         }
-
     }
 
     private int gcd(int a, int b) {
