@@ -1,5 +1,9 @@
 package FirstTask;
 
+
+
+import javafx.util.Pair;
+
 import java.io.*;
 import java.util.*;
 
@@ -12,7 +16,7 @@ public class SecondSubTask {
             StringBuilder text = Main.readText(in);
 
             int blockLen = 3;
-            Map<Integer, Integer> answer = new HashMap<>();
+            Map<Integer, List<Integer>> answer = new HashMap<>();
             while (blockLen < text.length() / 2 + 1) {
                 boolean findSameSubStr = false;
 
@@ -29,24 +33,52 @@ public class SecondSubTask {
                     }
                 }
 
-                Integer gcd = null;
-                for (Integer distance : distances) {
-                    if (gcd == null) {
-                        gcd = distance;
-                    } else {
-                        gcd = this.gcd(gcd, distance);
-                    }
-                }
-
                 if (!findSameSubStr) {
                     break;
                 }
 
-                answer.put(blockLen, gcd);
+                Map<Integer, Integer> gcds = new HashMap<>();
+                List<Integer> listDistances = new ArrayList<>(distances);
+                for (int i = 0; i < listDistances.size(); i++) {
+                    for (int j = i + 1; j < listDistances.size(); j++) {
+                        int gcd = this.gcd(listDistances.get(i), listDistances.get(j));
+                        if (gcds.containsKey(gcd)) {
+                            gcds.put(gcd, gcds.get(gcd) + 1);
+                        } else {
+                            gcds.put(gcd, 1);
+                        }
+                    }
+                }
+
+                List<Pair<Integer, Integer>> listDistAndAmount = new ArrayList<>();
+                gcds.forEach((key, value) -> {
+                    listDistAndAmount.add(new Pair<>(key, value));
+                });
+
+                Pair<Integer, Integer> p = new Pair<>(1,1);
+
+
+                Collections.sort(listDistAndAmount, (a, b) -> a.getValue() > b.getValue() ? -1 : Objects.equals(a.getValue(), b.getValue()) ? 0 : 1);
+
+                List<Integer> mostCommonGCD = new ArrayList<>();
+                final int[] mostCommonCount = {0};
+                listDistAndAmount.forEach(pair -> {
+                    int key = pair.getKey();
+
+                    //@todo maybe only 1
+                    if (key != 1 && key != 2 && ++mostCommonCount[0] < 10) {
+                        mostCommonGCD.add(key);
+                    }
+                });
+
+                if (mostCommonGCD.size() > 0) {
+                    Collections.sort(mostCommonGCD);
+                    answer.put(blockLen, mostCommonGCD);
+                }
                 blockLen++;
             }
 
-            out.println("Длина, НОД:");
+            out.println("Длина, Самые часто встречаемые НОД:");
             answer.forEach((key, value) -> {
                 out.println(key + ": " + value);
             });
