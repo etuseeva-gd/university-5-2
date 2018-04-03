@@ -1,7 +1,6 @@
 package FirstTask;
 
 
-
 import javafx.util.Pair;
 
 import java.io.*;
@@ -55,10 +54,8 @@ public class SecondSubTask {
                     listDistAndAmount.add(new Pair<>(key, value));
                 });
 
-                Pair<Integer, Integer> p = new Pair<>(1,1);
-
-
-                Collections.sort(listDistAndAmount, (a, b) -> a.getValue() > b.getValue() ? -1 : Objects.equals(a.getValue(), b.getValue()) ? 0 : 1);
+                Collections.sort(listDistAndAmount,
+                        (a, b) -> a.getValue() > b.getValue() ? -1 : Objects.equals(a.getValue(), b.getValue()) ? 0 : 1);
 
                 List<Integer> mostCommonGCD = new ArrayList<>();
                 final int[] mostCommonCount = {0};
@@ -78,9 +75,11 @@ public class SecondSubTask {
                 blockLen++;
             }
 
-            out.println("Длина, Самые часто встречаемые НОД:");
+            out.println("Первая колонка: длина блока;");
+            out.println("Вторая колонка: самые часто встречаемые НОД;");
+            out.println();
             answer.forEach((key, value) -> {
-                out.println(key + ": " + value);
+                out.println(key + " : " + value);
             });
         }
     }
