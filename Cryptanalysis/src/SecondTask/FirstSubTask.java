@@ -5,8 +5,6 @@ import java.io.*;
 import java.util.Scanner;
 
 public class FirstSubTask {
-    private static final String eng = "abcdefghijklmnopqrstuvwxyz";
-    private static final String rus = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     private static final String firstInput = "input_2.1.1.txt",
             secondInput = "input_2.1.2.txt";
 
@@ -20,35 +18,20 @@ public class FirstSubTask {
 
         switch (action) {
             case 1: {
-                try (BufferedReader firstIn = new BufferedReader(new InputStreamReader(new FileInputStream(firstInput)));
-                     BufferedReader secondIn = new BufferedReader(new InputStreamReader(new FileInputStream(secondInput)))) {
+                String y = Utils.read(firstInput);
+                String z = Utils.read(secondInput);
 
-                    String y = String.valueOf(Main.readText(firstIn));
-                    String z = String.valueOf(Main.readText(secondIn));
+                y = Utils.cleanString(y);
+                z = Utils.cleanString(z);
 
-                    y = this.cleanString(y);
-                    z = this.cleanString(z);
-
-                    System.out.println("Для последовательностей:");
-                    System.out.println(y);
-                    System.out.println(z);
-                    System.out.println("Индекс равен = " + this.getIndex(y, z));
-                }
+                this.printIndex(y, z);
 
                 break;
             }
             case 2: {
                 System.out.println("Введите длину последовательности: ");
                 int len = scanner.nextInt();
-
-                String y = this.genRandomSequence(len);
-                String z = this.genRandomSequence(len);
-
-                System.out.println("Для последовательностей:");
-                System.out.println(y);
-                System.out.println(z);
-                System.out.println("Индекс равен = " + this.getIndex(y, z));
-
+                this.printIndex(Utils.genRandomSequence(len), Utils.genRandomSequence(len));
                 break;
             }
             default: {
@@ -59,34 +42,11 @@ public class FirstSubTask {
         scanner.close();
     }
 
-    private String cleanString(String initString) {
-        initString = initString.toLowerCase();
-        StringBuilder updatedString = new StringBuilder();
-
-        for (int i = 0; i < initString.length(); i++) {
-            char c = initString.charAt(i);
-            if (Character.isAlphabetic(c)) {
-                updatedString.append(c);
-            }
-        }
-        return String.valueOf(updatedString);
-    }
-
-    private String genRandomSequence(int len) {
-        StringBuilder rand = new StringBuilder();
-        for (int i = 0; i < len; i++) {
-            if (this.getRandNum(0, 1) == 0) {
-                rand.append(eng.charAt(this.getRandNum(0, eng.length() - 1)));
-            } else {
-                rand.append(rus.charAt(this.getRandNum(0, rus.length() - 1)));
-            }
-        }
-        return String.valueOf(rand);
-    }
-
-    private int getRandNum(int minValue, int maxValue) {
-        int range = (maxValue - minValue) + 1;
-        return (int) (Math.random() * range) + minValue;
+    private void printIndex(String y, String z) {
+        System.out.println("Для последовательностей:");
+        System.out.println(y);
+        System.out.println(z);
+        System.out.println("Индекс равен = " + this.getIndex(y, z));
     }
 
     private double getIndex(String y, String z) {

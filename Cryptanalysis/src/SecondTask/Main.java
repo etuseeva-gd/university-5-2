@@ -1,6 +1,5 @@
 package SecondTask;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -32,26 +31,6 @@ public class Main {
             }
         }
         scanner.close();
-    }
-
-
-    static int[] readKey(String line) {
-        String[] numbersStr = line.split(" ");
-        int[] array = new int[numbersStr.length];
-        for (int i = 0; i < numbersStr.length; i++) {
-            array[i] = Integer.parseInt(numbersStr[i]);
-        }
-        return array;
-    }
-
-    static StringBuilder readText(BufferedReader inInput) throws IOException {
-        StringBuilder text = new StringBuilder();
-        String line = inInput.readLine();
-        while (line != null) {
-            text.append(line);
-            line = inInput.readLine();
-        }
-        return text;
     }
 }
 
