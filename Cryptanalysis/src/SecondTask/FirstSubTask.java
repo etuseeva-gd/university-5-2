@@ -1,13 +1,16 @@
 package SecondTask;
 
 
+import java.io.*;
 import java.util.Scanner;
 
 public class FirstSubTask {
     private static final String eng = "abcdefghijklmnopqrstuvwxyz";
     private static final String rus = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    private static final String firstInput = "input_2.1.1.txt",
+            secondInput = "input_2.1.2.txt";
 
-    public void init() {
+    public void init() throws IOException {
         System.out.println("Выберите режим программы, вычислить индекс для:");
         System.out.println("1. Последовательностей рус./англ. языка");
         System.out.println("2. Случайно сгенерированных последовательностей");
@@ -17,6 +20,21 @@ public class FirstSubTask {
 
         switch (action) {
             case 1: {
+                try (BufferedReader firstIn = new BufferedReader(new InputStreamReader(new FileInputStream(firstInput)));
+                     BufferedReader secondIn = new BufferedReader(new InputStreamReader(new FileInputStream(secondInput)))) {
+
+                    String y = String.valueOf(Main.readText(firstIn));
+                    String z = String.valueOf(Main.readText(secondIn));
+
+                    y = this.cleanString(y);
+                    z = this.cleanString(z);
+
+                    System.out.println("Для последовательностей:");
+                    System.out.println(y);
+                    System.out.println(z);
+                    System.out.println("Индекс равен = " + this.getIndex(y, z));
+                }
+
                 break;
             }
             case 2: {
@@ -74,9 +92,11 @@ public class FirstSubTask {
     private double getIndex(String y, String z) {
         if (y.length() != z.length()) {
             System.out.println("Длины входных последовательностей не совпадают!");
+            System.out.println("!!!Индекс будет подсчитан по мин. длине!!!");
         }
 
-        int n = y.length();
+        int n = Math.min(y.length(), z.length());
+        System.out.println("Минимальная длина = " + n);
 
         double index = 0;
         for (int i = 0; i < n; i++) {
