@@ -46,7 +46,7 @@ public class FirstSubTask {
         System.out.println("Для последовательностей:");
         System.out.println(y);
         System.out.println(z);
-        System.out.println("Индекс равен = " + this.getIndex(y, z));
+        System.out.println("Индекс равен = " + this.getIndex(y, z) * 100);
     }
 
     private double getIndex(String y, String z) {

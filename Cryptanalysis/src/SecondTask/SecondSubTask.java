@@ -47,7 +47,7 @@ public class SecondSubTask {
         System.out.println("Для последовательностей:");
         System.out.println(y);
         System.out.println(z);
-        System.out.println("Индекс равен = " + this.getIndex(y, z));
+        System.out.println("Индекс равен = " + this.getIndex(y, z) * 100);
     }
 
     private double getIndex(String y, String z) {
@@ -56,18 +56,18 @@ public class SecondSubTask {
             System.out.println("!!!Индекс будет подсчитан по мин. длине!!!");
         }
 
-        int n = Math.min(y.length(), z.length());
+        double n = Math.min(y.length(), z.length());
         System.out.println("Минимальная длина = " + n);
 
-        Map<Character, Integer> amountSymY = new HashMap<>(), amountSymZ = new HashMap<>();
+        Map<Character, Double> amountSymY = new HashMap<>(), amountSymZ = new HashMap<>();
 
         for (int i = 0; i < Utils.rus.length(); i++) {
-            amountSymY.put(Utils.rus.charAt(i), 0);
-            amountSymZ.put(Utils.rus.charAt(i), 0);
+            amountSymY.put(Utils.rus.charAt(i), 0.0);
+            amountSymZ.put(Utils.rus.charAt(i), 0.0);
         }
         for (int i = 0; i < Utils.eng.length(); i++) {
-            amountSymY.put(Utils.eng.charAt(i), 0);
-            amountSymZ.put(Utils.eng.charAt(i), 0);
+            amountSymY.put(Utils.eng.charAt(i), 0.0);
+            amountSymZ.put(Utils.eng.charAt(i), 0.0);
         }
 
         for (int i = 0; i < n; i++) {
@@ -79,15 +79,17 @@ public class SecondSubTask {
         double index = 0;
 
         for (int i = 0; i < Utils.rus.length(); i++) {
-            char keyY = y.charAt(i), keyZ = z.charAt(i);
-            index += amountSymY.get(keyY) * amountSymZ.get(keyZ);
+            char keyY = Utils.rus.charAt(i), keyZ = Utils.rus.charAt(i);
+            double pY = amountSymY.get(keyY) / n, pZ = amountSymZ.get(keyZ) / n;
+            index += pY * pZ;
         }
 
         for (int i = 0; i < Utils.eng.length(); i++) {
-            char keyY = y.charAt(i), keyZ = z.charAt(i);
-            index += amountSymY.get(keyY) * amountSymZ.get(keyZ);
+            char keyY = Utils.eng.charAt(i), keyZ = Utils.eng.charAt(i);
+            double pY = amountSymY.get(keyY) / n, pZ = amountSymZ.get(keyZ) / n;
+            index += pY * pZ;
         }
 
-        return index / n;
+        return index;
     }
 }
