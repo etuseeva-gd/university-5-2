@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FirstSubTask {
-    private static final String input = "input_1.1.txt", key = "key_1.1.txt", cryptogram = "cryptogram_1.1.txt";
+    private static final String input = "input_1.1.txt", inputKey = "input_1.1_key.txt", ouputCrypt = "ouput_1.1_crypt.txt";
 
     public void init() throws IOException {
         System.out.println("Что вы хотите сделать?");
@@ -39,7 +39,7 @@ public class FirstSubTask {
 
         int start = 1, end = permutations.size() - 1;
         int index = start + (int) (Math.random() * (end - start + 1));
-        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(key)))) {
+        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(inputKey)))) {
             for (int i = 0; i < keyLength; i++) {
                 out.print(permutations.get(index)[i] + " ");
             }
@@ -47,9 +47,9 @@ public class FirstSubTask {
     }
 
     private void crypt() throws IOException {
-        try (BufferedReader inKey = new BufferedReader(new InputStreamReader(new FileInputStream(key)));
+        try (BufferedReader inKey = new BufferedReader(new InputStreamReader(new FileInputStream(inputKey)));
              BufferedReader inInput = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
-             PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(cryptogram)))) {
+             PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(ouputCrypt)))) {
 
             int[] key = Main.readKey(inKey.readLine());
             StringBuilder text = Main.readText(inInput);
