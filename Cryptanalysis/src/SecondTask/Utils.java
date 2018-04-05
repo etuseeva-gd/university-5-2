@@ -1,9 +1,6 @@
 package SecondTask;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Utils {
     public static final String eng = "abcdefghijklmnopqrstuvwxyz";
@@ -18,6 +15,12 @@ public class Utils {
                 line = input.readLine();
             }
             return String.valueOf(text);
+        }
+    }
+
+    public static void print(String fileName, String text) throws IOException {
+        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(fileName)))) {
+            out.println(text);
         }
     }
 
