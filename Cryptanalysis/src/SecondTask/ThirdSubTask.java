@@ -21,21 +21,21 @@ public class ThirdSubTask {
 
         List<String> vignerTable = this.getVignerTable(alph);
 
-        Scanner scanner = new Scanner(System.in);
-        int action = scanner.nextInt();
-
         System.out.println("Что вы хотите сделать?");
         System.out.println("1. Зашифровать открытый текст");
-        System.out.println("1. Расшифровать криптограмму");
+        System.out.println("2. Расшифровать криптограмму");
+
+        Scanner scanner = new Scanner(System.in);
+        int action = scanner.nextInt();
         switch (action) {
             case 1: {
                 String text = this.cleanText(Utils.read(inputText), alph);
-                Utils.print(outputShiftText, this.getShiftText(text));
+//                Utils.print(outputShiftText, this.getShiftText(text));
 
                 String cryptText = this.crypt(text, alph, key, vignerTable);
 
                 Utils.print(outputCrypt, cryptText);
-                Utils.print(outputShiftCrypt, this.getShiftText(cryptText));
+//                Utils.print(outputShiftCrypt, this.getShiftText(cryptText));
                 break;
             }
             case 2: {
@@ -53,7 +53,7 @@ public class ThirdSubTask {
         StringBuilder updatedText = new StringBuilder();
 
         for (int i = 0; i < text.length(); i++) {
-            char c = updatedText.charAt(i);
+            char c = text.charAt(i);
             if (alph.indexOf(c) != -1) {
                 updatedText.append(c);
             }
