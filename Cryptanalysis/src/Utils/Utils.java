@@ -47,7 +47,8 @@ public class Utils {
                 updatedString.append(c);
             }
         }
-        return String.valueOf(updatedString);
+
+        return String.valueOf(updatedString).replaceAll("\\s+", " ");
     }
 
     public static String genRandomSequence(int len) {

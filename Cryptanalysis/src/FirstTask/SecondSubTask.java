@@ -9,6 +9,7 @@ import java.util.*;
 public class SecondSubTask {
     private static final String input = "input_1.2.txt", output = "output_1.2.txt";
 
+    //todo rewrite!! шифр вижинера как сложение по модулю!
     public void init() throws IOException {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(output)))) {
