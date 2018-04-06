@@ -19,10 +19,10 @@ public class Main {
                 new FirstSubTask().init();
                 break;
             }
-//            case 2: {
-//                new SecondSubTask().init();
-//                break;
-//            }
+            case 2: {
+                new SecondSubTask().init();
+                break;
+            }
 //            case 3: {
 //                new ThirdSubTask().init();
 //                break;

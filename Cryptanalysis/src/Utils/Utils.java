@@ -37,7 +37,7 @@ public class Utils {
         return String.valueOf(updatedString);
     }
 
-    public static String cleanText(String initString, String alph) {
+    public static String cleanString(String initString, String alph) {
         initString = initString.toLowerCase();
         StringBuilder updatedString = new StringBuilder();
 

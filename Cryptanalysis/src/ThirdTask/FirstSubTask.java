@@ -61,7 +61,7 @@ public class FirstSubTask {
         //Подсчитать все биграммы полученные в тексте
         //@todo нужен текст длиннее
         String text = Utils.read(inputText);
-        text = Utils.cleanText(text, alph);
+        text = Utils.cleanString(text, alph);
 
         Set<String> textBiagrams = new HashSet<>();
         for (int i = 0; i < text.length() - 1; i++) {
@@ -74,5 +74,12 @@ public class FirstSubTask {
 
         //@todo вывести по нормальному
         System.out.println(bagBiagrams);
+    }
+
+    /**
+     * Построение вспомогательной таблицы для анализа шифра перестановки при известной длине периода
+     */
+    private void second() {
+
     }
 }
