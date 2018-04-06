@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import Utils.Utils;
 
 public class ThirdSubTask {
     private static final String
@@ -30,12 +31,12 @@ public class ThirdSubTask {
         switch (action) {
             case 1: {
                 String text = this.cleanText(Utils.read(inputText), alph);
-//                Utils.print(outputShiftText, this.getShiftText(text));
+//                Utils.Utils.print(outputShiftText, this.getShiftText(text));
 
                 String cryptText = this.crypt(text, alph, key, vignerTable);
 
                 Utils.print(outputCrypt, cryptText);
-//                Utils.print(outputShiftCrypt, this.getShiftText(cryptText));
+//                Utils.Utils.print(outputShiftCrypt, this.getShiftText(cryptText));
                 break;
             }
             case 2: {

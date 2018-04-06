@@ -1,4 +1,4 @@
-package SecondTask;
+package Utils;
 
 import java.io.*;
 
@@ -31,6 +31,19 @@ public class Utils {
         for (int i = 0; i < initString.length(); i++) {
             char c = initString.charAt(i);
             if (Character.isAlphabetic(c)) {
+                updatedString.append(c);
+            }
+        }
+        return String.valueOf(updatedString);
+    }
+
+    public static String cleanText(String initString, String alph) {
+        initString = initString.toLowerCase();
+        StringBuilder updatedString = new StringBuilder();
+
+        for (int i = 0; i < initString.length(); i++) {
+            char c = initString.charAt(i);
+            if (alph.indexOf(c) != -1) {
                 updatedString.append(c);
             }
         }

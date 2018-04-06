@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import Utils.Utils;
 
 public class SecondSubTask {
     private static final String firstInput = "input_2.1.1.txt",

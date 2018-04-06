@@ -3,6 +3,7 @@ package SecondTask;
 
 import java.io.*;
 import java.util.Scanner;
+import Utils.Utils;
 
 public class FirstSubTask {
     private static final String firstInput = "input_2.1.1.txt",
