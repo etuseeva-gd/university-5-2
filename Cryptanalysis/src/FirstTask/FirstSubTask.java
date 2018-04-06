@@ -3,6 +3,7 @@ package FirstTask;
 import java.io.*;
 import java.util.List;
 import java.util.Scanner;
+import Utils.Utils;
 
 public class FirstSubTask {
     private static final String input = "input_1.1.txt", inputKey = "input_1.1_key.txt", ouputCrypt = "ouput_1.1_crypt.txt";
@@ -51,7 +52,7 @@ public class FirstSubTask {
              BufferedReader inInput = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(ouputCrypt)))) {
 
-            int[] key = Main.readKey(inKey.readLine());
+            int[] key = Utils.readKey(inKey.readLine());
             StringBuilder text = Main.readText(inInput);
 
             int keyLength = key.length;

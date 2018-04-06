@@ -10,10 +10,11 @@ public class Main {
     }
 
     private void run() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите номер задания:");
-        int taskNum = scanner.nextInt();
+        System.out.println("ПЕРВЫЙ БЛОК ЗАДАНИЙ!!!");
+        System.out.println("Введите номер под задания:");
 
+        Scanner scanner = new Scanner(System.in);
+        int taskNum = scanner.nextInt();
         switch (taskNum) {
             case 1: {
                 new FirstSubTask().init();
@@ -23,25 +24,11 @@ public class Main {
                 new SecondSubTask().init();
                 break;
             }
-            case 3: {
-                new ThirdSubTask().init();
-                break;
-            }
             default: {
                 System.out.println("Неккоректная операция!");
             }
         }
         scanner.close();
-    }
-
-
-    static int[] readKey(String line) {
-        String[] numbersStr = line.split(" ");
-        int[] array = new int[numbersStr.length];
-        for (int i = 0; i < numbersStr.length; i++) {
-            array[i] = Integer.parseInt(numbersStr[i]);
-        }
-        return array;
     }
 
     static StringBuilder readText(BufferedReader inInput) throws IOException {
