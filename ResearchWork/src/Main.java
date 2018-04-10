@@ -9,7 +9,6 @@ public class Main {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
-
                 System.out.println(Arrays.deepToString(Utils.parseGraph(line)));
             }
         }
