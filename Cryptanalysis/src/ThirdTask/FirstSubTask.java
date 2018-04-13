@@ -1,45 +1,19 @@
 package ThirdTask;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
 
 import Utils.Utils;
 
 public class FirstSubTask {
-    void init() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-
-
-        int action = scanner.nextInt();
-
-        switch (action) {
-            case 1: {
-                this.first();
-                break;
-            }
-            case 2: {
-                break;
-            }
-            case 3: {
-                break;
-            }
-            case 4: {
-                break;
-            }
-            default: {
-                System.out.println("Неверная операция!");
-            }
-        }
-        scanner.close();
-    }
-
     /**
      * Вычисление множества запретных биграмм языка открытых сообщений
+
+     * Вход: файл с большим текстом на языке открытых сообщений.
+     * Выход: файл алфавита; файл запретных биграмм.
      */
-    private void first() throws IOException {
+    void init() throws IOException {
         String inputAlph = "input_3.1.1_alph.txt", inputText = "input_3.1.1_text.txt";
 
         //Сгенерировать все биграммы языка
@@ -69,12 +43,5 @@ public class FirstSubTask {
 
         //@todo вывести по нормальному
         System.out.println(bagBiagrams);
-    }
-
-    /**
-     * Построение вспомогательной таблицы для анализа шифра перестановки при известной длине периода
-     */
-    private void second() {
-
     }
 }
