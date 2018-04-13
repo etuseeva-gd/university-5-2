@@ -8,8 +8,6 @@ public class ThirdSubTask {
     private static final String output1 = "output_1.3.txt";
 
     public void init() throws IOException {
-        System.out.println("Переребор ключей моноциклической перестановки.");
-
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ведите длину ключа:");
 

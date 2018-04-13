@@ -10,8 +10,6 @@ public class SecondSubTask {
     private static final String input = "input_1.2.txt", output = "output_1.2.txt";
 
     public void init() throws IOException {
-        System.out.println("Тест Казиски по вычислению длины ключа простой перестановки");
-
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(output)))) {
             StringBuilder text = Main.readText(in);
