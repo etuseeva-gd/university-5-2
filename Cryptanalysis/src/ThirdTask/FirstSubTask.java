@@ -11,12 +11,7 @@ import Utils.Utils;
 public class FirstSubTask {
     void init() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Что вы хотите сделать?");
-        System.out.println("1. Вычисление множества запретных биграмм языка открытых сообщений");
-        System.out.println("2. Построение вспомогательной таблицы для анализа шифра " +
-                "перестановки при известной длине периода");
-        System.out.println("3. Построение ориентированного леса возможных перестановок");
-        System.out.println("4. Перебор ключей по ориентированному лесу возможных перестановок");
+
 
         int action = scanner.nextInt();
 

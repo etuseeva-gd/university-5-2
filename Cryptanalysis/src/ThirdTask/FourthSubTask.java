@@ -1,6 +1,6 @@
 package ThirdTask;
 
-public class ThirdSubTask {
+public class FourthSubTask {
     public void init() {
 
     }

@@ -16,6 +16,7 @@ public class ThirdSubTask {
             outputShiftCrypt = "output_2.3_shift_crypt.txt",
             outputDecrypt = "output_2.3_decrypt.txt";
 
+    //todo rewrite!! шифр вижинера как сложение по модулю!
     public void init() throws IOException {
         String alph = Utils.read(inputAlph).toLowerCase();
         String key = Utils.read(inputKey).toLowerCase();

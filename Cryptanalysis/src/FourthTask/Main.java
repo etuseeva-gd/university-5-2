@@ -1,17 +1,14 @@
-package FirstTask;
+package FourthTask;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        new Main().run();
-    }
-
     private void run() throws IOException {
-        System.out.println("ПЕРВЫЙ БЛОК ЗАДАНИЙ!!!");
+        System.out.println("ЧЕТВЕРТЫЙ БЛОК ЗАДАНИЙ!!!");
         System.out.println("Введите номер под задания:");
+        System.out.println("1. Атака по частотному анализу");
+        System.out.println("2. Атака по вероятному слову");
 
         Scanner scanner = new Scanner(System.in);
         int taskNum = scanner.nextInt();
@@ -24,24 +21,10 @@ public class Main {
                 new SecondSubTask().init();
                 break;
             }
-            case 3: {
-                new ThirdSubTask().init();
-                break;
-            }
             default: {
                 System.out.println("Неккоректная операция!");
             }
         }
         scanner.close();
-    }
-
-    static StringBuilder readText(BufferedReader inInput) throws IOException {
-        StringBuilder text = new StringBuilder();
-        String line = inInput.readLine();
-        while (line != null) {
-            text.append(line);
-            line = inInput.readLine();
-        }
-        return text;
     }
 }
