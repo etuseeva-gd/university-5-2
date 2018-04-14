@@ -15,6 +15,7 @@ public class FirstSubTask {
      */
     void init() throws IOException {
         String inputAlph = "input_3.1.1_alph.txt", inputText = "input_3.1.1_text.txt";
+        String output = "output_3.1.1_biagrams.txt";
 
         //Сгенерировать все биграммы языка
         //@todo проверить еще раз на наличие пробела
@@ -41,7 +42,12 @@ public class FirstSubTask {
         Set<String> bagBiagrams = new HashSet<>(allBiagrams);
         bagBiagrams.removeAll(textBiagrams);
 
+        StringBuilder outBiagrams = new StringBuilder();
+        bagBiagrams.forEach(biagram -> {
+            outBiagrams.append(biagram).append("\n");
+        });
+
         //@todo вывести по нормальному
-        System.out.println(bagBiagrams);
+        Utils.print(output, String.valueOf(outBiagrams));
     }
 }
