@@ -9,33 +9,7 @@ import java.util.*;
 public class SecondSubTask {
     private static final String input = "input_1.2.txt", output = "output_1.2.txt";
 
-    //todo rewrite!! шифр вижинера как сложение по модулю!
     public void init() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Что вы хотите сделать?");
-        System.out.println("1. Вычисление множества запретных биграмм языка открытых сообщений");
-        System.out.println("2. Построение вспомогательной таблицы для анализа шифра " +
-                "перестановки при известной длине периода");
-
-        int action = scanner.nextInt();
-
-        switch (action) {
-            case 1: {
-                this.first();
-                break;
-            }
-            case 2: {
-                this.second(scanner);
-                break;
-            }
-            default: {
-                System.out.println("Неверная операция!");
-            }
-        }
-        scanner.close();
-    }
-
-    private void first() throws IOException {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
              PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(output)))) {
             StringBuilder text = Main.readText(in);
@@ -106,25 +80,6 @@ public class SecondSubTask {
             out.println();
             answer.forEach((key, value) -> {
                 out.println(key + " : " + value);
-            });
-        }
-    }
-
-    //@todo rewrite
-    private static final String output1 = "output_1.3.txt";
-
-    private void second(Scanner scanner) throws FileNotFoundException {
-        System.out.println("Ведите длину ключа:");
-
-        int keyLength = scanner.nextInt();
-        List<int[]> permutations = new MonocyclicPermutation().genKeys(keyLength);
-
-        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(output1)))) {
-            permutations.forEach(permutation -> {
-                for (int num : permutation) {
-                    out.print(num + " ");
-                }
-                out.println();
             });
         }
     }

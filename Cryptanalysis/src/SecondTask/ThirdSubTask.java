@@ -16,6 +16,7 @@ public class ThirdSubTask {
             outputShiftCrypt = "output_2.3_shift_crypt.txt",
             outputDecrypt = "output_2.3_decrypt.txt";
 
+    //todo rewrite!! шифр вижинера как сложение по модулю!
     public void init() throws IOException {
         String alph = Utils.read(inputAlph).toLowerCase();
         String key = Utils.read(inputKey).toLowerCase();
@@ -31,12 +32,12 @@ public class ThirdSubTask {
         switch (action) {
             case 1: {
                 String text = this.cleanText(Utils.read(inputText), alph);
-//                Utils.Utils.print(outputShiftText, this.getShiftText(text));
+                Utils.print(outputShiftText, this.getShiftText(text));
 
                 String cryptText = this.crypt(text, alph, key, vignerTable);
 
                 Utils.print(outputCrypt, cryptText);
-//                Utils.Utils.print(outputShiftCrypt, this.getShiftText(cryptText));
+                Utils.print(outputShiftCrypt, this.getShiftText(cryptText));
                 break;
             }
             case 2: {
@@ -100,7 +101,7 @@ public class ThirdSubTask {
     private String getShiftText(String text) {
         StringBuilder shiftText = new StringBuilder();
         for (int i = 0; i < 15; i++) {
-            shiftText.append(text.substring(i + 1)).append(text.substring(0, i + 1));
+            shiftText.append(text.substring(i + 1)).append(text.substring(0, i + 1)).append("\n");
         }
         return String.valueOf(shiftText);
     }

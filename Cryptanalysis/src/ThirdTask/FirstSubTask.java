@@ -1,51 +1,21 @@
 package ThirdTask;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
 
 import Utils.Utils;
 
 public class FirstSubTask {
-    void init() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Что вы хотите сделать?");
-        System.out.println("1. Вычисление множества запретных биграмм языка открытых сообщений");
-        System.out.println("2. Построение вспомогательной таблицы для анализа шифра " +
-                "перестановки при известной длине периода");
-        System.out.println("3. Построение ориентированного леса возможных перестановок");
-        System.out.println("4. Перебор ключей по ориентированному лесу возможных перестановок");
-
-        int action = scanner.nextInt();
-
-        switch (action) {
-            case 1: {
-                this.first();
-                break;
-            }
-            case 2: {
-                break;
-            }
-            case 3: {
-                break;
-            }
-            case 4: {
-                break;
-            }
-            default: {
-                System.out.println("Неверная операция!");
-            }
-        }
-        scanner.close();
-    }
-
     /**
      * Вычисление множества запретных биграмм языка открытых сообщений
+
+     * Вход: файл с большим текстом на языке открытых сообщений.
+     * Выход: файл алфавита; файл запретных биграмм.
      */
-    private void first() throws IOException {
+    void init() throws IOException {
         String inputAlph = "input_3.1.1_alph.txt", inputText = "input_3.1.1_text.txt";
+        String output = "output_3.1.1_biagrams.txt";
 
         //Сгенерировать все биграммы языка
         //@todo проверить еще раз на наличие пробела
@@ -72,14 +42,12 @@ public class FirstSubTask {
         Set<String> bagBiagrams = new HashSet<>(allBiagrams);
         bagBiagrams.removeAll(textBiagrams);
 
+        StringBuilder outBiagrams = new StringBuilder();
+        bagBiagrams.forEach(biagram -> {
+            outBiagrams.append(biagram).append("\n");
+        });
+
         //@todo вывести по нормальному
-        System.out.println(bagBiagrams);
-    }
-
-    /**
-     * Построение вспомогательной таблицы для анализа шифра перестановки при известной длине периода
-     */
-    private void second() {
-
+        Utils.print(output, String.valueOf(outBiagrams));
     }
 }

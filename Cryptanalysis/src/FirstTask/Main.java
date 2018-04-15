@@ -12,6 +12,10 @@ public class Main {
     private void run() throws IOException {
         System.out.println("ПЕРВЫЙ БЛОК ЗАДАНИЙ!!!");
         System.out.println("Введите номер под задания:");
+        System.out.println("1. Шифр простой перестановки на основе " +
+                "генерации ключа моноциклической перестановки");
+        System.out.println("2. Тест Казиски по вычислению длины ключа простой перестановки");
+        System.out.println("3. Перебор ключей моноциклической перестановки при известной длине ключа");
 
         Scanner scanner = new Scanner(System.in);
         int taskNum = scanner.nextInt();
@@ -22,6 +26,10 @@ public class Main {
             }
             case 2: {
                 new SecondSubTask().init();
+                break;
+            }
+            case 3: {
+                new ThirdSubTask().init();
                 break;
             }
             default: {

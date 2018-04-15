@@ -1,23 +1,17 @@
-package SecondTask;
+package FourthTask;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        new Main().run();
-    }
-
     private void run() throws IOException {
-        System.out.println("ВТОРОЙ БЛОК ЗАДАНИЙ!!! АНАЛИЗ ФРИДМАНА");
+        System.out.println("ЧЕТВЕРТЫЙ БЛОК ЗАДАНИЙ!!!");
         System.out.println("Введите номер под задания:");
-        System.out.println("1. Индекс совпадения");
-        System.out.println("2. Средний индекс совпадения");
-        System.out.println("3. Шифр Вижинера");
+        System.out.println("1. Атака по частотному анализу");
+        System.out.println("2. Атака по вероятному слову");
 
         Scanner scanner = new Scanner(System.in);
         int taskNum = scanner.nextInt();
-
         switch (taskNum) {
             case 1: {
                 new FirstSubTask().init();
@@ -27,10 +21,6 @@ public class Main {
                 new SecondSubTask().init();
                 break;
             }
-            case 3: {
-                new ThirdSubTask().init();
-                break;
-            }
             default: {
                 System.out.println("Неккоректная операция!");
             }
@@ -38,4 +28,3 @@ public class Main {
         scanner.close();
     }
 }
-
