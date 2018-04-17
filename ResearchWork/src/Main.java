@@ -5,11 +5,11 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("g2.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("g5.txt"))) {
             String line = null;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-                System.out.println(Arrays.deepToString(Utils.parseGraph(line)));
+                Graph graph = new Graph(Utils.parseGraph(line));
+                graph.coloringGraph();
             }
         }
     }
