@@ -19,9 +19,7 @@ public class SecondSubTask {
         Scanner scan = new Scanner(System.in);
         int keyLength = scan.nextInt(); //Длина периода
 
-        String inputCrypt = "input_3.2_crypt.txt";
-
-        String text = Utils.read(inputCrypt); // @todo clean text???
+        String text = Utils.read(Files.CRYPT_TEXT).toLowerCase(); // @todo clean text???
         List<String> textBlocks = new ArrayList<>();
         for (int i = 0; i < text.length() - keyLength; i += keyLength) {
             textBlocks.add(text.substring(i, i + keyLength));

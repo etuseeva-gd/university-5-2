@@ -13,12 +13,10 @@ public class Main {
         System.out.println("ТРЕТИЙ БЛОК ЗАДАНИЙ!!!");
         System.out.println("Введите номер под задания:");
         System.out.println("1. Вычисление множества запретных биграмм языка открытых сообщений");
-        System.out.println("2. Сгенерировать ключ (моноциклическая перестановка)");
-        System.out.println("3. Зашифровать текст (шифр простой перестановки)");
-        System.out.println("4. Построение вспомогательной таблицы для анализа шифра " +
+        System.out.println("2. Построение вспомогательной таблицы для анализа шифра " +
                 "перестановки при известной длине периода");
-        System.out.println("5. Построение ориентированного леса возможных перестановок");
-        System.out.println("6. Перебор ключей по ориентированному лесу возможных перестановок");
+        System.out.println("3. Построение ориентированного леса возможных перестановок");
+        System.out.println("4. Перебор ключей по ориентированному лесу возможных перестановок");
 
         Scanner scanner = new Scanner(System.in);
         int taskNum = scanner.nextInt();
@@ -28,22 +26,14 @@ public class Main {
                 break;
             }
             case 2: {
-                //gen key
-                break;
-            }
-            case 3: {
-                //crypt text
-                break;
-            }
-            case 4: {
                 new SecondSubTask().init();
                 break;
             }
-            case 5: {
+            case 3: {
                 new ThirdSubTask().init();
                 break;
             }
-            case 6: {
+            case 4: {
                 new FourthSubTask().init();
                 break;
             }
