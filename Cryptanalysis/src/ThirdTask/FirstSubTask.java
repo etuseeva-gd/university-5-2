@@ -14,12 +14,8 @@ public class FirstSubTask {
      * Выход: файл алфавита; файл запретных биграмм.
      */
     void init() throws IOException {
-        String inputAlph = "input_3.1.1_alph.txt", inputText = "input_3.1.1_text.txt";
-        String output = "output_3.1.1_biagrams.txt";
-
-        //Сгенерировать все биграммы языка
         //@todo проверить еще раз на наличие пробела
-        String alph = Utils.read(inputAlph);
+        String alph = Utils.read(Files.ALPHABET);
         Set<String> allBiagrams = new HashSet<>();
         for (int i = 0; i < alph.length(); i++) {
             for (int j = i; j < alph.length(); j++) {
@@ -30,7 +26,7 @@ public class FirstSubTask {
 
         //Подсчитать все биграммы полученные в тексте
         //@todo нужен текст длиннее
-        String text = Utils.read(inputText);
+        String text = Utils.read(Files.BIG_TEXT);
         text = Utils.cleanString(text, alph);
 
         Set<String> textBiagrams = new HashSet<>();
@@ -47,7 +43,6 @@ public class FirstSubTask {
             outBiagrams.append(biagram).append("\n");
         });
 
-        //@todo вывести по нормальному
-        Utils.print(output, String.valueOf(outBiagrams));
+        Utils.print(Files.FORBIDDEN_BIAGRAMS, String.valueOf(outBiagrams));
     }
 }
