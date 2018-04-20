@@ -26,7 +26,7 @@ public class Files {
             List<String> biagrams = new ArrayList<>();
             String line = input.readLine();
             while (line != null) {
-                if (!line.equals("")) {
+                if (!line.equals("") && !line.equals("  ")) {
                     biagrams.add(line);
                 }
                 line = input.readLine();

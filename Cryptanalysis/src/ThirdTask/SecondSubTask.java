@@ -33,6 +33,7 @@ public class SecondSubTask {
                 for (int j = 0; j < block.length(); j++) {
                     String biagram = block.substring(i, i + 1) + block.substring(j, j + 1);
                     if (forbiddenBalsams.contains(biagram)) {
+                        System.out.println(biagram);
                         table[i][j] = 1; //@todo 'X'
                     }
                 }
