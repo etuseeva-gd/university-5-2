@@ -48,6 +48,8 @@ public class Graph {
         List<Pair<Integer, Integer>> permutationEdges = new ArrayList<>(edges);
 
         int minColorAmount = maxDegree + 2;
+
+        int i = 0;
         while (true) {
             int colorAmount = coloring(permutationEdges);
             minColorAmount = Math.min(colorAmount, minColorAmount);
@@ -59,6 +61,10 @@ public class Graph {
             }
 
             //out.println(permutationEdges);
+            if (++i == 1000000) {
+                System.out.println("Было прервано, результат не точен!");
+                break;
+            }
         }
 
         out.println("Максимальная степень = " + maxDegree);

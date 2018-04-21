@@ -10,7 +10,7 @@ public class Main {
         writer.print("");
         writer.close();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("g7.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("g9.txt"))) {
             String line = null;
             int i = 0;
             while ((line = reader.readLine()) != null) {
