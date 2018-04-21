@@ -1,6 +1,7 @@
 import javafx.util.Pair;
 
 import javax.swing.*;
+import java.io.*;
 import java.util.*;
 
 public class Graph {
@@ -31,10 +32,12 @@ public class Graph {
         return vertexes;
     }
 
-    public void coloringGraph() {
-        System.out.println("Граф:");
-        System.out.println(vertexes);
-        System.out.println(edges);
+    public void coloringGraph() throws FileNotFoundException {
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(new File("nir_report.txt"), true)));
+
+        out.println("Граф:");
+        out.println(vertexes);
+        out.println(edges);
 
         int maxDegree = getDegree();
 
@@ -55,18 +58,14 @@ public class Graph {
                 break;
             }
 
-            //System.out.println(permutationEdges);
+            //out.println(permutationEdges);
         }
 
-        System.out.println("Максимальная степень = " + maxDegree);
-        System.out.println("Точная покраска = " + minColorAmount + " цвета(ов)");
-        if (minColorAmount == maxDegree + 1) {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        }
-        System.out.println("----");
+        out.println("Максимальная степень = " + maxDegree);
+        out.println("Точная покраска = " + minColorAmount + " цвета(ов)" + (minColorAmount == maxDegree + 1 ? " !!!!!" : ""));
+        out.println("-----------");
+
+        out.close();
     }
 
     boolean nextPermutation(int[] array, List<Pair<Integer, Integer>> permutation) {
@@ -170,6 +169,13 @@ public class Graph {
                 }
             }
         });
+
+        /*System.out.println("---");
+        used.forEach((edge, color) -> {
+            System.out.println(edge + " = " + color);
+        });
+        System.out.println(colors.size());
+        System.out.println("---");*/
 
         return colors.size();
     }
