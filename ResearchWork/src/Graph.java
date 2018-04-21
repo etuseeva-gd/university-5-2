@@ -21,7 +21,7 @@ public class Graph {
                     vertexes.get(j).add(i);
 
                     edges.add(new Pair<>(i, j));
-                    edges.add(new Pair<>(j, i)); //закоментить лдя color3
+                    //edges.add(new Pair<>(j, i)); //закоментить лдя color3
                 }
             }
         }
@@ -32,11 +32,57 @@ public class Graph {
     }
 
     public void coloringGraph() {
-        // edge, color number
+        System.out.println("Граф:");
+        System.out.println(vertexes);
+        System.out.println(edges);
 
+        int maxDegree = getDegree();
+
+        List<Integer> indexes = new ArrayList<>(Collections.nCopies(edges.size(), 0));
+        List<Pair<Integer, Integer>> permutationEdges = new ArrayList<>(edges);
+        while (true) {
+            int colorAmount = coloring(permutationEdges);
+
+            //@todo check
+            if (colorAmount == maxDegree || colorAmount == maxDegree + 1) {
+                System.out.println("Максимальная степень = " + maxDegree);
+                System.out.println("Точная покраска = " + colorAmount + " цвета(ов)");
+                break;
+            }
+
+            getNextPermutation(indexes, permutationEdges);
+            //System.out.println(permutationEdges);
+        }
+
+        System.out.println("----");
     }
 
-    public void color(List<Pair<Integer, Integer>> edges) {
+    public boolean getNextPermutation(List<Integer> indexes, List<Pair<Integer, Integer>> permutation) {
+        int len1 = edges.size() - 1, i;
+        for (i = permutation.size() - 1; i >= 0 && permutation.get(i).equals(edges.get(len1)); --i) {
+            indexes.set(i, 0);
+            permutation.set(i, edges.get(0));
+        }
+
+        if (i < 0) {
+            return false;
+        }
+
+        permutation.set(i, edges.get(indexes.set(i, indexes.get(i) + 1)));
+        return true;
+    }
+
+    public int getDegree() {
+        int maxDegree = Integer.MIN_VALUE;
+        for (List<Integer> pairs : vertexes) {
+            if (pairs.size() > maxDegree) {
+                maxDegree = pairs.size();
+            }
+        }
+        return maxDegree;
+    }
+
+    public int coloring(List<Pair<Integer, Integer>> edges) {
         Map<Pair<Integer, Integer>, Integer> used = new HashMap<>();
         edges.forEach(edge -> {
             used.put(edge, -1);
@@ -50,15 +96,23 @@ public class Graph {
 
                 Set<Integer> usedColors = new HashSet<>();
                 for (int i = 0; i < vertexes.get(v).size(); i++) {
-                    Pair<Integer, Integer> e = new Pair<>(v, vertexes.get(v).get(i));
-                    if (used.get(e) != -1) {
-                        usedColors.add(used.get(e));
+                    Pair<Integer, Integer> e1 = new Pair<>(v, vertexes.get(v).get(i));
+                    Pair<Integer, Integer> e2 = new Pair<>(vertexes.get(v).get(i), v);
+                    if (used.containsKey(e1) && used.get(e1) != -1) {
+                        usedColors.add(used.get(e1));
+                    }
+                    if (used.containsKey(e2) && used.get(e2) != -1) {
+                        usedColors.add(used.get(e2));
                     }
                 }
                 for (int i = 0; i < vertexes.get(u).size(); i++) {
-                    Pair<Integer, Integer> e = new Pair<>(u, vertexes.get(u).get(i));
-                    if (used.get(e) != -1) {
-                        usedColors.add(used.get(e));
+                    Pair<Integer, Integer> e1 = new Pair<>(u, vertexes.get(u).get(i));
+                    Pair<Integer, Integer> e2 = new Pair<>(vertexes.get(u).get(i), u);
+                    if (used.containsKey(e1) && used.get(e1) != -1) {
+                        usedColors.add(used.get(e1));
+                    }
+                    if (used.containsKey(e2) && used.get(e2) != -1) {
+                        usedColors.add(used.get(e2));
                     }
                 }
 
@@ -68,18 +122,15 @@ public class Graph {
                         color = colors.get(colors.size() - 1) + 1;
                     }
                     colors.add(color);
-
                     used.put(edge, color);
-                    used.put(oppositeEdge, color);
-
-                    System.out.println(edge + " " + color);
+                    //used.put(oppositeEdge, color);
+//                    System.out.println(edge + " " + color);
                 } else {
                     for (int color : colors) {
                         if (!usedColors.contains(color)) {
                             used.put(edge, color);
-                            used.put(oppositeEdge, color);
-
-                            System.out.println(edge + " " + color);
+                            //used.put(oppositeEdge, color);
+//                            System.out.println(edge + " " + color);
                             break;
                         }
                     }
@@ -87,11 +138,7 @@ public class Graph {
             }
         });
 
-        //todo строить от вершин!
-        System.out.println(vertexes);
-        System.out.println(edges);
-        System.out.println(colors.size());
-        System.out.println("----");
+        return colors.size();
     }
 
     /*public void coloringGraph2() {
