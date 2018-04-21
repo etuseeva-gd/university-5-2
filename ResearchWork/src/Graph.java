@@ -38,37 +38,70 @@ public class Graph {
 
         int maxDegree = getDegree();
 
-        List<Integer> indexes = new ArrayList<>(Collections.nCopies(edges.size(), 0));
+        int[] indexes = new int[edges.size()];
+        for (int i = 0; i < indexes.length; i++) {
+            indexes[i] = i;
+        }
         List<Pair<Integer, Integer>> permutationEdges = new ArrayList<>(edges);
+
+        int minColorAmount = maxDegree + 2;
         while (true) {
             int colorAmount = coloring(permutationEdges);
+            minColorAmount = Math.min(colorAmount, minColorAmount);
 
             //@todo check
-            if (colorAmount == maxDegree || colorAmount == maxDegree + 1) {
-                System.out.println("Максимальная степень = " + maxDegree);
-                System.out.println("Точная покраска = " + colorAmount + " цвета(ов)");
+//            colorAmount == maxDegree || colorAmount == maxDegree + 1
+            if (!nextPermutation(indexes, permutationEdges) || colorAmount == maxDegree) {
                 break;
             }
 
-            getNextPermutation(indexes, permutationEdges);
             //System.out.println(permutationEdges);
         }
 
+        System.out.println("Максимальная степень = " + maxDegree);
+        System.out.println("Точная покраска = " + minColorAmount + " цвета(ов)");
+        if (minColorAmount == maxDegree + 1) {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
         System.out.println("----");
     }
 
-    public boolean getNextPermutation(List<Integer> indexes, List<Pair<Integer, Integer>> permutation) {
-        int len1 = edges.size() - 1, i;
-        for (i = permutation.size() - 1; i >= 0 && permutation.get(i).equals(edges.get(len1)); --i) {
-            indexes.set(i, 0);
-            permutation.set(i, edges.get(0));
+    boolean nextPermutation(int[] array, List<Pair<Integer, Integer>> permutation) {
+        int i = array.length - 1;
+
+        while (i > 0 && array[i - 1] >= array[i]) {
+            i--;
         }
 
-        if (i < 0) {
+        if (i <= 0) {
             return false;
         }
 
-        permutation.set(i, edges.get(indexes.set(i, indexes.get(i) + 1)));
+        int j = array.length - 1;
+        while (array[j] <= array[i - 1]) {
+            j--;
+        }
+
+        int temp = array[i - 1];
+        array[i - 1] = array[j];
+        array[j] = temp;
+
+        j = array.length - 1;
+        while (i < j) {
+            temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+            i++;
+            j--;
+        }
+
+        for (int k = 0; k < array.length; k++) {
+            permutation.set(k, edges.get(array[k]));
+        }
+
         return true;
     }
 
