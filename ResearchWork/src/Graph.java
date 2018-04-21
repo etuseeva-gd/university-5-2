@@ -89,4 +89,23 @@ public class Graph {
         System.out.println(colors.size());
         System.out.println("----");
     }
+
+    public void coloringGraph2() {
+        Map<Pair<Integer, Integer>, Integer> used = new HashMap<>();
+        edges.forEach(edge -> {
+            used.put(edge, -1);
+        });
+
+        for (int u = 0; u < vertexes.size(); u++) {
+            List<Integer> pairs = vertexes.get(u);
+            for (int i = 0; i < pairs.size(); i++) {
+                int v = pairs.get(i);
+                Pair<Integer, Integer> edge = new Pair<>(u, v);
+                if (used.get(edge) == -1) {
+                    //coloring
+
+                }
+            }
+        }
+    }
 }
