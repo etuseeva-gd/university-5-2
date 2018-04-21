@@ -21,7 +21,7 @@ public class Graph {
                     vertexes.get(j).add(i);
 
                     edges.add(new Pair<>(i, j));
-                    edges.add(new Pair<>(j, i));
+                    edges.add(new Pair<>(j, i)); //закоментить лдя color3
                 }
             }
         }
@@ -33,6 +33,10 @@ public class Graph {
 
     public void coloringGraph() {
         // edge, color number
+
+    }
+
+    public void color(List<Pair<Integer, Integer>> edges) {
         Map<Pair<Integer, Integer>, Integer> used = new HashMap<>();
         edges.forEach(edge -> {
             used.put(edge, -1);
@@ -90,12 +94,13 @@ public class Graph {
         System.out.println("----");
     }
 
-    public void coloringGraph2() {
+    /*public void coloringGraph2() {
         Map<Pair<Integer, Integer>, Integer> used = new HashMap<>();
         edges.forEach(edge -> {
             used.put(edge, -1);
         });
 
+        List<Integer> colors = new ArrayList<>();
         for (int u = 0; u < vertexes.size(); u++) {
             List<Integer> pairs = vertexes.get(u);
             for (int i = 0; i < pairs.size(); i++) {
@@ -103,9 +108,85 @@ public class Graph {
                 Pair<Integer, Integer> edge = new Pair<>(u, v);
                 if (used.get(edge) == -1) {
                     //coloring
+                    Pair<Integer, Integer> oppositeEdge = new Pair<>(v, u);
+                    Set<Integer> usedColors = new HashSet<>();
 
+                    for (int j = 0; j < vertexes.get(v).size(); j++) {
+                        Pair<Integer, Integer> e = new Pair<>(v, vertexes.get(v).get(j));
+                        if (used.get(e) != -1) {
+                            usedColors.add(used.get(e));
+                        }
+                    }
+                    for (int j = 0; j < vertexes.get(u).size(); j++) {
+                        Pair<Integer, Integer> e = new Pair<>(u, vertexes.get(u).get(j));
+                        if (used.get(e) != -1) {
+                            usedColors.add(used.get(e));
+                        }
+                    }
+                    if (colors.size() == usedColors.size()) {
+                        Integer color = 0;
+                        if (colors.size() != 0) {
+                            color = colors.get(colors.size() - 1) + 1;
+                        }
+                        colors.add(color);
+
+                        used.put(edge, color);
+                        used.put(oppositeEdge, color);
+
+                        System.out.println(edge + " " + color);
+                    } else {
+                        for (int color : colors) {
+                            if (!usedColors.contains(color)) {
+                                used.put(edge, color);
+                                used.put(oppositeEdge, color);
+
+                                System.out.println(edge + " " + color);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }
+
+        System.out.println(vertexes);
+        System.out.println(edges);
+        System.out.println(colors.size());
+        System.out.println("----");
     }
+
+    public void coloringGraph3() {
+        int n = edges.size(); //количество вершин в новом графе
+        List<List<Integer>> vertexes = new ArrayList<>();
+        edges.forEach(edge -> {
+            vertexes.add(new ArrayList<>());
+        });
+
+        Map<Pair<Integer, Integer>, Integer> edgeIndexes = new HashMap<>();
+        int index = 0;
+        for (Pair<Integer, Integer> edge : edges) {
+            edgeIndexes.put(edge, index);
+            edgeIndexes.put(new Pair<>(edge.getValue(), edge.getKey()), index);
+            index++;
+        }
+
+        System.out.println("===============");
+        System.out.println(edges);
+        for (int i = 0; i < edges.size(); i++) {
+            int u = edges.get(i).getKey(), v = edges.get(i).getValue();
+
+            for (int j = 0; j < edges.size(); j++) {
+                int uu = edges.get(j).getKey(), vv = edges.get(j).getValue();
+                if ((u == uu && v != vv) || (u == vv && v != uu) || (u != uu && v == vv) ||(u != vv && v == uu)) {
+                    System.out.println(edges.get(i) + " - " + edges.get(j));
+                    vertexes.get(i).add(j);
+                }
+            }
+        }
+
+        vertexes.forEach(System.out::println);
+        System.out.println("===============");
+
+        // in vertexes - находится нов граф
+    }*/
 }
