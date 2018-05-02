@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -13,6 +12,11 @@ public class Main {
             String line = null;
             int i = 0;
             while ((line = reader.readLine()) != null) {
+                PrintWriter out = new PrintWriter(new BufferedOutputStream(
+                        new FileOutputStream(new File("nir_report.txt"), true)));
+
+                StringBuilder graphReport = new StringBuilder();
+
                 Graph graph = new Graph(Utils.parseGraph(line));
 
                 // Максимальная степень вершины графа
@@ -39,10 +43,15 @@ public class Main {
                         // n
                     }
                 } else {
-                    graph.coloringGraph();
+                    graph.getColoring();
                 }
 
                 System.out.println(i++);
+
+                // out.println("Максимальная степень = " + maxDegree);
+                // out.println("Точная покраска = " + minColorAmount + " цвета(ов)" + (minColorAmount == maxDegree + 1 ? " !!!!!" : ""));
+                // out.println("-----------");
+                out.close();
             }
         }
     }

@@ -40,46 +40,40 @@ public class Graph {
         return vertexes.size();
     }
 
-    public void coloringGraph() throws FileNotFoundException {
-        PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(new File("nir_report.txt"), true)));
-
-        out.println("Граф:");
-        out.println(vertexes);
-        out.println(edges);
-
+    public Coloring getColoring() throws FileNotFoundException {
+        // Получаем максимальную степень вершины графа
         int maxDegree = getMaxDegree();
 
+        // Получаем начальную перестановку
         int[] indexes = new int[edges.size()];
         for (int i = 0; i < indexes.length; i++) {
             indexes[i] = i;
         }
         List<Pair<Integer, Integer>> permutationEdges = new ArrayList<>(edges);
 
-        int minColorAmount = maxDegree + 2;
-
+        Coloring minColoring = new Coloring();
         int i = 0;
         while (true) {
-            int colorAmount = coloring(permutationEdges);
-            minColorAmount = Math.min(colorAmount, minColorAmount);
+            Coloring coloring = localColoring(permutationEdges);
 
-            //@todo check
-//            colorAmount == maxDegree || colorAmount == maxDegree + 1
+            int colorAmount = coloring.getColorSize();
+            if (i == 0 || minColoring.getColorSize() > colorAmount) {
+                // @todo Проверить насчет ссылки
+                minColoring = coloring;
+            }
+
             if (!nextPermutation(indexes, permutationEdges) || colorAmount == maxDegree) {
+                // узнали что граф равен типу 1
                 break;
             }
 
-            //out.println(permutationEdges);
-            if (++i == 1000000) {
-                System.out.println("Было прервано, результат не точен!");
+            if (++i == 100000) {
+                minColoring.setError("Было прервано!");
                 break;
             }
         }
 
-        out.println("Максимальная степень = " + maxDegree);
-        out.println("Точная покраска = " + minColorAmount + " цвета(ов)" + (minColorAmount == maxDegree + 1 ? " !!!!!" : ""));
-        out.println("-----------");
-
-        out.close();
+        return minColoring;
     }
 
     private boolean nextPermutation(int[] array, List<Pair<Integer, Integer>> permutation) {
@@ -132,7 +126,14 @@ public class Graph {
         return maxDegree;
     }
 
-    public int coloring(List<Pair<Integer, Integer>> edges) {
+    /**
+     * Окраска графа в "тупую". В том порядке в котором были
+     * поданы ребра
+     *
+     * @param edges
+     * @return
+     */
+    private Coloring localColoring(List<Pair<Integer, Integer>> edges) {
         Map<Pair<Integer, Integer>, Integer> used = new HashMap<>();
         edges.forEach(edge -> {
             used.put(edge, -1);
@@ -158,12 +159,10 @@ public class Graph {
                     }
                     colors.add(color);
                     used.put(edge, color);
-//                    System.out.println(edge + " " + color);
                 } else {
                     for (int color : colors) {
                         if (!usedColors.contains(color)) {
                             used.put(edge, color);
-//                            System.out.println(edge + " " + color);
                             break;
                         }
                     }
@@ -171,14 +170,7 @@ public class Graph {
             }
         });
 
-        /*System.out.println("---");
-        used.forEach((edge, color) -> {
-            System.out.println(edge + " = " + color);
-        });
-        System.out.println(colors.size());
-        System.out.println("---");*/
-
-        return colors.size();
+        return new Coloring(colors, used);
     }
 
     // Фунция для добавления в множество usedColors уже использованные цвета.

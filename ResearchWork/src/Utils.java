@@ -1,5 +1,11 @@
 public class Utils {
 
+    /**
+     * Декодирование графа полученного из генератора
+     *
+     * @param strGraph
+     * @return
+     */
     static public int[][] parseGraph(String strGraph) {
         StringBuilder stringBuilderMatrix = new StringBuilder();
         for (int i = 1; i < strGraph.length(); i++) {
