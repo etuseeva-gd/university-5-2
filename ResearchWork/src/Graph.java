@@ -6,8 +6,11 @@ import java.util.*;
 public class Graph {
     private List<List<Integer>> vertexes = new ArrayList<>();
     private List<Pair<Integer, Integer>> edges = new ArrayList<>();
+    private int[][] matrix = null;
 
     Graph(int[][] matrix) {
+        this.matrix = matrix;
+
         int n = matrix.length;
 
         for (int[] mItem : matrix) {
@@ -29,6 +32,14 @@ public class Graph {
 
     public List<List<Integer>> getVertexes() {
         return vertexes;
+    }
+
+    public List<Pair<Integer, Integer>> getEdges() {
+        return edges;
+    }
+
+    public int[][] getMatrix() {
+        return matrix;
     }
 
     /**
@@ -67,7 +78,7 @@ public class Graph {
                 break;
             }
 
-            if (++i == 100000) {
+            if (++i == 1000000) {
                 minColoring.setError("Было прервано!");
                 break;
             }
