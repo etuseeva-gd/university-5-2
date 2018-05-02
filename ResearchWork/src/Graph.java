@@ -1,6 +1,5 @@
 import javafx.util.Pair;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
@@ -32,6 +31,15 @@ public class Graph {
         return vertexes;
     }
 
+    /**
+     * Получить количество вершин графа
+     *
+     * @return
+     */
+    public int getVertexesSize() {
+        return vertexes.size();
+    }
+
     public void coloringGraph() throws FileNotFoundException {
         PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(new File("nir_report.txt"), true)));
 
@@ -39,7 +47,7 @@ public class Graph {
         out.println(vertexes);
         out.println(edges);
 
-        int maxDegree = getDegree();
+        int maxDegree = getMaxDegree();
 
         int[] indexes = new int[edges.size()];
         for (int i = 0; i < indexes.length; i++) {
@@ -110,12 +118,16 @@ public class Graph {
         return true;
     }
 
-    public int getDegree() {
+    /**
+     * Получить максимальную степень вершины графа
+     *
+     * @return
+     */
+    public int getMaxDegree() {
+        // @todo переписать с stream
         int maxDegree = Integer.MIN_VALUE;
-        for (List<Integer> pairs : vertexes) {
-            if (pairs.size() > maxDegree) {
-                maxDegree = pairs.size();
-            }
+        for (List<Integer> endVertexes : vertexes) {
+            maxDegree = Math.max(maxDegree, endVertexes.size());
         }
         return maxDegree;
     }
@@ -181,6 +193,72 @@ public class Graph {
         if (used.containsKey(e2) && used.get(e2) != -1) {
             usedColors.add(used.get(e2));
         }
+    }
+
+    /**
+     * Проверяет граф на полноту. Граф является полным,
+     * в котором каждая пара различных вершин смежна.
+     *
+     * @return
+     */
+    public boolean isFullGraph() {
+        // Количество вершин
+        int n = vertexes.size();
+
+        for (List<Integer> endVertexes : vertexes) {
+            if (endVertexes.size() != n - 1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Проверяет граф на кубичность. Граф является кубическим,
+     * если все степени его вершин = 3.
+     *
+     * @return
+     */
+    public boolean isCubicGraph() {
+        for (List<Integer> endVertexes : vertexes) {
+            if (endVertexes.size() != 3) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Проверяет циклический ли это граф. То есть в нем
+     * есть только один цикл.
+     *
+     * @return
+     */
+    public boolean isCyclicGraph() {
+        return false;
+    }
+
+    /**
+     * Проверяет граф на двудольность.
+     *
+     * @return
+     */
+    public boolean isBigraph() {
+        List<Boolean> used = new ArrayList<>(Collections.nCopies(vertexes.size(), false));
+        List<Integer> part = new ArrayList<>(Collections.nCopies(vertexes.size(), -1));
+
+        for (int i = 0; i < vertexes.size(); i++) {
+            // вершина не находится ни в какой доле
+            if (part.get(i) == -1) {
+                int h = 0, t = 0;
+
+                part.set(i, 0);
+
+            }
+        }
+
+        return false;
     }
 
 }

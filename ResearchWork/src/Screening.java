@@ -27,19 +27,7 @@ public class Screening {
         return false;
     }
 
-    /**
-     * Граф является кубическим, если все степени его вершин = 3
-     *
-     * @return
-     */
-    public boolean isCubicGraph(List<List<Integer>> vertexes) {
-        for (List<Integer> endVertexes : vertexes) {
-            if (endVertexes.size() != 3) {
-                return false;
-            }
-        }
-        return true;
-    }
+
 
     public boolean hasCycle() {
         return false;
