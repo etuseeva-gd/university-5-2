@@ -1,14 +1,13 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        PrintWriter writer = new PrintWriter("nir_report.txt");
-        writer.print("");
-        writer.close();
+        new Main().run();
+    }
+
+    void run() throws IOException {
+        this.cleanReport();
 
         try (BufferedReader reader = new BufferedReader(new FileReader("g9.txt"))) {
             String line = null;
@@ -46,6 +45,17 @@ public class Main {
                 System.out.println(i++);
             }
         }
+    }
+
+    /**
+     * Очищаем предыдущий файл с репортом.
+     *
+     * @throws FileNotFoundException
+     */
+    private void cleanReport() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter("nir_report.txt");
+        writer.print("");
+        writer.close();
     }
 }
 

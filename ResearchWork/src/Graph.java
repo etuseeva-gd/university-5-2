@@ -261,4 +261,40 @@ public class Graph {
         return false;
     }
 
+    /**
+     * Поиск в ширину
+     */
+    public void bfs() {
+
+    }
+
+    /**
+     * Поиск в глубину
+     */
+    public void dfs(int startVertex, List<Boolean> used, List<List<Integer>> vertexes) {
+        // List<Boolean> used = new ArrayList<>(Collections.nCopies(vertexes.size(), false));
+        used.set(startVertex, true);
+        for (int i = 0; i < vertexes.get(startVertex).size(); i++) {
+            int endVertex = vertexes.get(startVertex).get(i);
+            if (!used.get(endVertex)) {
+                this.dfs(endVertex, used, vertexes);
+            }
+        }
+    }
+
+    /**
+     * Поиск в глубину
+     */
+    public void dfs2(int startVertex, List<Integer> colors, List<List<Integer>> vertexes) {
+        for (int i = 0; i < vertexes.get(startVertex).size(); i++) {
+            int endVertex = vertexes.get(startVertex).get(i);
+            if (colors.get(endVertex) == 0) {
+                colors.set(endVertex, 3 - colors.get(startVertex));
+                this.dfs2(endVertex, colors, vertexes);
+            } else if (true) {
+
+            }
+        }
+    }
+
 }
