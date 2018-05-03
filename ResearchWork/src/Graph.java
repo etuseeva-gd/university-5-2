@@ -4,11 +4,14 @@ import java.io.*;
 import java.util.*;
 
 public class Graph {
+    private String strView = null;
     private List<List<Integer>> vertexes = new ArrayList<>();
     private List<Pair<Integer, Integer>> edges = new ArrayList<>();
     private int[][] matrix = null;
 
-    Graph(int[][] matrix) {
+    Graph(int[][] matrix, String strView) {
+        // Нужно для отладки и возможно последующего перезапуска программы
+        this.strView = strView;
         this.matrix = matrix;
 
         int n = matrix.length;
@@ -40,6 +43,10 @@ public class Graph {
 
     public int[][] getMatrix() {
         return matrix;
+    }
+
+    public String getStrView() {
+        return strView;
     }
 
     /**
@@ -293,6 +300,10 @@ public class Graph {
         colors.set(u, 2);
     }
 
+    /**
+     * Свойство говорит о том, двудольный ли наш граф.
+     */
+    private boolean isBigraphFlag = true;
 
     /**
      * Проверяет граф на двудольность.
@@ -305,28 +316,30 @@ public class Graph {
         for (int s = 0; s < vertexes.size(); s++) {
             if (colors.get(s) == 0) {
                 colors.set(s, 1);
-                if (!this.dfsForBigraph(s, colors)) {
+                this.dfsForBigraph(s, colors);
+                if (!isBigraphFlag) {
                     return false;
                 }
             }
         }
 
-        return true;
+        return isBigraphFlag;
     }
 
     /**
      * Поиск в глубину
      */
-    private boolean dfsForBigraph(int u, List<Integer> colors) {
+    private void dfsForBigraph(int u, List<Integer> colors) {
         for (int i = 0; i < vertexes.get(u).size(); i++) {
             int v = vertexes.get(u).get(i);
+            System.out.println(u + " " + v);
             if (colors.get(v) == 0) {
                 colors.set(v, 3 - colors.get(u));
+                System.out.println(colors.get(v));
                 this.dfsForBigraph(v, colors);
             } else if (Objects.equals(colors.get(u), colors.get(v))) {
-                return false;
+                this.isBigraphFlag = false;
             }
         }
-        return true;
     }
 }

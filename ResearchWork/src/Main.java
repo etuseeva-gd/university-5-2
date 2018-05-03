@@ -12,16 +12,17 @@ public class Main {
     private void run() throws IOException {
         this.cleanReport();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("g6.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("g5.txt"))) {
             String line = null;
             int i = 0;
             while ((line = reader.readLine()) != null) {
-                Graph graph = new Graph(Utils.parseGraph(line));
+                Graph graph = new Graph(Utils.parseGraph(line), line.trim());
 
                 StringBuilder graphReport = new StringBuilder();
                 graphReport.append("----------").append('\n');
 
                 // @todo перепроверить, может переписать
+                graphReport.append("Было сгенерировано: ").append(graph.getStrView()).append('\n');
                 int[][] matrix = graph.getMatrix();
                 graphReport.append("Матрица смежности: ").append(Arrays.deepToString(matrix)).append('\n');
                 List<Pair<Integer, Integer>> edges = graph.getEdges();
