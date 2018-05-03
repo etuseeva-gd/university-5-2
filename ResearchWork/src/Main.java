@@ -38,7 +38,7 @@ public class Main {
                 graphReport.append("Хроматический индекс: ");
                 if (graph.isCubicGraph()) {
                     // Если граф кубический
-//                    graphReport.append("Это кубический граф!").append('\n');
+                    graphReport.append("Это кубический граф!").append('\n');
                     graphReport.append(maxDegree).append('\n');
                 } else if (graph.isBigraph()) {
                     // Если граф двудольный
@@ -46,7 +46,7 @@ public class Main {
                     graphReport.append(maxDegree).append('\n');
                 }else if (graph.isCyclicGraph()) {
                     // Если граф является циклом
-//                    graphReport.append("Это циклический граф!").append('\n');
+                    graphReport.append("Это циклический граф!").append('\n');
                     if (n % 2 == 0) {
                         // 2
                         graphReport.append(2).append('\n');
@@ -56,7 +56,7 @@ public class Main {
                     }
                 } else if (graph.isFullGraph()) {
                     // Если граф является полным
-//                    graphReport.append("Это полный граф!").append('\n');
+                    graphReport.append("Это полный граф!").append('\n');
                     if (n % 2 == 0) {
                         // n - 1
                         graphReport.append(n - 1).append('\n');

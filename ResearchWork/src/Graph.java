@@ -233,6 +233,12 @@ public class Graph {
         return true;
     }
 
+
+    /**
+     * Свойство говорит о том, есть ли в текущем графе циклы
+     */
+    private boolean hasCycle = false;
+
     /**
      * Проверяет циклический ли это граф. То есть в нем
      * есть только один цикл.
@@ -240,10 +246,53 @@ public class Graph {
      * @return
      */
     public boolean isCyclicGraph() {
-        // @todo implement
-
         return false;
+
+        // @todo Добавить проверку на связность
+        /*
+        for (List<Integer> pairs : vertexes) {
+            if (pairs.size() != 2) {
+                return false;
+            }
+        }
+
+        List<Integer> colors = new ArrayList<>(Collections.nCopies(vertexes.size(), 0));
+
+        for (int i = 0; i < vertexes.size(); i++) {
+            if (colors.get(i) == 0) {
+                colors.set(i, 1);
+                this.dfsForCyclicGraph(i, colors);
+            }
+        }
+
+        if (!this.hasCycle) {
+            return false;
+        }
+
+        for (int i = 0; i < vertexes.size(); i++) {
+            if (colors.get(i) == 0) {
+                return false;
+            }
+        }
+        return true;*/
     }
+
+    /**
+     * Поиск в глубину
+     */
+    private void dfsForCyclicGraph(int u, List<Integer> colors) {
+        colors.set(u, 1);
+        for (int i = 0; i < vertexes.get(u).size(); i++) {
+            int v = vertexes.get(u).get(i);
+            if (colors.get(v) == 0) {
+                this.dfsForCyclicGraph(v, colors);
+            } else if (colors.get(v) == 1) {
+                this.hasCycle = true;
+            }
+        }
+        colors.set(u, 2);
+    }
+
 
     /**
      * Проверяет граф на двудольность.
@@ -256,7 +305,7 @@ public class Graph {
         for (int s = 0; s < vertexes.size(); s++) {
             if (colors.get(s) == 0) {
                 colors.set(s, 1);
-                if (!this.dfs(s, colors)) {
+                if (!this.dfsForBigraph(s, colors)) {
                     return false;
                 }
             }
@@ -266,25 +315,16 @@ public class Graph {
     }
 
     /**
-     * Поиск в ширину
-     */
-    public void bfs() {
-
-    }
-
-    /**
      * Поиск в глубину
      */
-    public boolean dfs(int u, List<Integer> colors) {
+    private boolean dfsForBigraph(int u, List<Integer> colors) {
         for (int i = 0; i < vertexes.get(u).size(); i++) {
             int v = vertexes.get(u).get(i);
             if (colors.get(v) == 0) {
                 colors.set(v, 3 - colors.get(u));
-                this.dfs(v, colors);
-            } else {
-                if (Objects.equals(colors.get(u), colors.get(v))) {
-                    return false;
-                }
+                this.dfsForBigraph(v, colors);
+            } else if (Objects.equals(colors.get(u), colors.get(v))) {
+                return false;
             }
         }
         return true;
