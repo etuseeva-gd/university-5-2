@@ -12,7 +12,7 @@ public class Main {
     private void run() throws IOException {
         this.cleanReport();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("g5.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("g6.txt"))) {
             String line = null;
             int i = 0;
             while ((line = reader.readLine()) != null) {

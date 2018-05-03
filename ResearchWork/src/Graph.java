@@ -251,12 +251,15 @@ public class Graph {
      * @return
      */
     public boolean isBigraph() {
-        List<Integer> part = new ArrayList<>(Collections.nCopies(vertexes.size(), -1));
-        List<Boolean> used = new ArrayList<>(Collections.nCopies(vertexes.size(), false));
-        Queue<Integer> q = new PriorityQueue<>();
+        List<Integer> colors = new ArrayList<>(Collections.nCopies(vertexes.size(), 0));
 
         for (int s = 0; s < vertexes.size(); s++) {
-
+            if (colors.get(s) == 0) {
+                colors.set(s, 1);
+                if (!this.dfs(s, colors)) {
+                    return false;
+                }
+            }
         }
 
         return true;
@@ -272,19 +275,18 @@ public class Graph {
     /**
      * Поиск в глубину
      */
-    public void dfs(int u, List<Integer> colors) {
-        colors.set(u, 0);
+    public boolean dfs(int u, List<Integer> colors) {
         for (int i = 0; i < vertexes.get(u).size(); i++) {
             int v = vertexes.get(u).get(i);
-            if (colors.get(v) == -1) {
-                colors.set(v, 1);
+            if (colors.get(v) == 0) {
+                colors.set(v, 3 - colors.get(u));
                 this.dfs(v, colors);
             } else {
                 if (Objects.equals(colors.get(u), colors.get(v))) {
-                    return;
+                    return false;
                 }
             }
         }
+        return true;
     }
-
 }
