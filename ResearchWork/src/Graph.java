@@ -79,6 +79,7 @@ public class Graph {
             }
 
             if (++i == 1000000) {
+                // @todo добавить представление графа
                 minColoring.setError("Было прервано!");
                 break;
             }
@@ -239,6 +240,8 @@ public class Graph {
      * @return
      */
     public boolean isCyclicGraph() {
+        // @todo implement
+
         return false;
     }
 
@@ -248,20 +251,36 @@ public class Graph {
      * @return
      */
     public boolean isBigraph() {
-        List<Boolean> used = new ArrayList<>(Collections.nCopies(vertexes.size(), false));
         List<Integer> part = new ArrayList<>(Collections.nCopies(vertexes.size(), -1));
+        List<Boolean> used = new ArrayList<>(Collections.nCopies(vertexes.size(), false));
+        Queue<Integer> q = new PriorityQueue<>();
 
-        for (int i = 0; i < vertexes.size(); i++) {
-            // вершина не находится ни в какой доле
-            if (part.get(i) == -1) {
-                int h = 0, t = 0;
+        int s = 0;
 
-                part.set(i, 0);
+        used.set(s, true);
+        q.add(s);
+        part.set(s, 0);
 
+        while (!q.isEmpty()) {
+            int u = q.element(); // получение верхнего элемента
+            for (int i = 0; i < vertexes.get(u).size(); i++) {
+                int v = vertexes.get(u).get(i);
+                if (!used.get(v)) {
+                    used.set(v, true);
+                    q.add(v);
+
+                    if (part.get(v) == -1) {
+                        part.set(v, part.get(u) == 0 ? 1 : 0);
+                    } else {
+                        if (Objects.equals(part.get(u), part.get(v))) {
+                            return false;
+                        }
+                    }
+                }
             }
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -274,13 +293,12 @@ public class Graph {
     /**
      * Поиск в глубину
      */
-    public void dfs(int startVertex, List<Boolean> used, List<List<Integer>> vertexes) {
-        // List<Boolean> used = new ArrayList<>(Collections.nCopies(vertexes.size(), false));
+    public void dfs(int startVertex, List<Boolean> used) {
         used.set(startVertex, true);
         for (int i = 0; i < vertexes.get(startVertex).size(); i++) {
             int endVertex = vertexes.get(startVertex).get(i);
             if (!used.get(endVertex)) {
-                this.dfs(endVertex, used, vertexes);
+                this.dfs(endVertex, used);
             }
         }
     }
