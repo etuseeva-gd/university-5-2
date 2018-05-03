@@ -255,29 +255,8 @@ public class Graph {
         List<Boolean> used = new ArrayList<>(Collections.nCopies(vertexes.size(), false));
         Queue<Integer> q = new PriorityQueue<>();
 
-        int s = 0;
+        for (int s = 0; s < vertexes.size(); s++) {
 
-        used.set(s, true);
-        q.add(s);
-        part.set(s, 0);
-
-        while (!q.isEmpty()) {
-            int u = q.element(); // получение верхнего элемента
-            for (int i = 0; i < vertexes.get(u).size(); i++) {
-                int v = vertexes.get(u).get(i);
-                if (!used.get(v)) {
-                    used.set(v, true);
-                    q.add(v);
-
-                    if (part.get(v) == -1) {
-                        part.set(v, part.get(u) == 0 ? 1 : 0);
-                    } else {
-                        if (Objects.equals(part.get(u), part.get(v))) {
-                            return false;
-                        }
-                    }
-                }
-            }
         }
 
         return true;
@@ -293,27 +272,17 @@ public class Graph {
     /**
      * Поиск в глубину
      */
-    public void dfs(int startVertex, List<Boolean> used) {
-        used.set(startVertex, true);
-        for (int i = 0; i < vertexes.get(startVertex).size(); i++) {
-            int endVertex = vertexes.get(startVertex).get(i);
-            if (!used.get(endVertex)) {
-                this.dfs(endVertex, used);
-            }
-        }
-    }
-
-    /**
-     * Поиск в глубину
-     */
-    public void dfs2(int startVertex, List<Integer> colors, List<List<Integer>> vertexes) {
-        for (int i = 0; i < vertexes.get(startVertex).size(); i++) {
-            int endVertex = vertexes.get(startVertex).get(i);
-            if (colors.get(endVertex) == 0) {
-                colors.set(endVertex, 3 - colors.get(startVertex));
-                this.dfs2(endVertex, colors, vertexes);
-            } else if (true) {
-
+    public void dfs(int u, List<Integer> colors) {
+        colors.set(u, 0);
+        for (int i = 0; i < vertexes.get(u).size(); i++) {
+            int v = vertexes.get(u).get(i);
+            if (colors.get(v) == -1) {
+                colors.set(v, 1);
+                this.dfs(v, colors);
+            } else {
+                if (Objects.equals(colors.get(u), colors.get(v))) {
+                    return;
+                }
             }
         }
     }
