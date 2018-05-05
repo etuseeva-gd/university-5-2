@@ -11,7 +11,7 @@ public class Main {
     private void run() throws IOException {
         this.cleanReport();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("g5.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("g7.txt"))) {
             String line = null;
             int i = 1;
             while ((line = reader.readLine()) != null) {
@@ -21,7 +21,6 @@ public class Main {
                 Graph graph = new Graph(Utils.parseGraph(line), line.trim());
                 out.print(this.coloringGraph(graph));
                 System.out.println(i++);
-
                 out.close();
             }
         }

@@ -55,7 +55,7 @@ public class Coloring {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append(getColorSize()).append('\n');
+//        str.append(getColorSize()).append('\n');
         colorsOfEdges.forEach((edge, color) -> {
             str.append(edge).append(": ").append(color).append('\n');
         });

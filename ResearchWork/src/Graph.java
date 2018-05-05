@@ -76,16 +76,16 @@ public class Graph {
 
             int colorAmount = coloring.getColorSize();
             if (i == 0 || minColoring.getColorSize() > colorAmount) {
-                // @todo Проверить насчет ссылки
                 minColoring = coloring;
             }
 
             if (!nextPermutation(indexes, permutationEdges) || colorAmount == maxDegree) {
                 // узнали что граф равен типу 1
+                // или что мы перебрали всевозможные варианты
                 break;
             }
 
-            if (++i == 1000000) {
+            if (++i == 100000) {
                 // @todo добавить представление графа
                 minColoring.setError("Было прервано!");
                 break;
