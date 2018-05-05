@@ -4,7 +4,6 @@ import javafx.util.Pair;
 
 import java.io.*;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -59,7 +58,7 @@ public class Main {
         System.out.println("Программа отработала за " + (endTime - startTime) / 60000 + " мин.");
     }
 
-    private StringBuilder coloringGraph(Graph graph) throws FileNotFoundException {
+    public StringBuilder coloringGraph(Graph graph) throws FileNotFoundException {
         StringBuilder graphReport = new StringBuilder();
         graphReport.append("----------").append('\n');
 

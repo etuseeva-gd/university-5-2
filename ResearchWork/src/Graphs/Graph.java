@@ -11,6 +11,18 @@ public class Graph {
     private List<Pair<Integer, Integer>> edges = new ArrayList<>();
     private int[][] matrix = null;
 
+    // для многопоточности
+    private Boolean isEmpty = false;
+
+    public Graph(boolean isEmpty) {
+        this.isEmpty = isEmpty;
+    }
+
+    public Boolean getEmpty() {
+        return isEmpty;
+    }
+    // конец
+
     public Graph(int[][] matrix, String strView) {
         // Нужно для отладки и возможно последующего перезапуска программы
         this.strView = strView;
@@ -149,7 +161,7 @@ public class Graph {
 
     // @todo deprecated
     private List<Pair<Integer, Integer>> getPermutation() {
-        List<Pair<Integer,Integer>> edgesAmount = new ArrayList<>();
+        List<Pair<Integer, Integer>> edgesAmount = new ArrayList<>();
         int i = 0;
         for (Pair<Integer, Integer> edge : edges) {
             int amount = vertexes.get(edge.getKey()).size() + vertexes.get(edge.getValue()).size();
