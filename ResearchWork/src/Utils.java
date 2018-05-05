@@ -1,12 +1,11 @@
 public class Utils {
-
     /**
      * Декодирование графа полученного из генератора
      *
      * @param strGraph
      * @return
      */
-    static public int[][] parseGraph(String strGraph) {
+    public static int[][] parseGraph(String strGraph) {
         StringBuilder stringBuilderMatrix = new StringBuilder();
         for (int i = 1; i < strGraph.length(); i++) {
             int number = Utils.parseChar(strGraph.charAt(i));
@@ -33,8 +32,7 @@ public class Utils {
         return matrix;
     }
 
-    static private int parseChar(char c) {
+    private static int parseChar(char c) {
         return ((int) c) - 63;
     }
-
 }

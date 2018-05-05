@@ -95,6 +95,14 @@ public class Graph {
         return minColoring;
     }
 
+    /**
+     * Берет слудующую перестановку ребер.
+     * Можно перенести в отдельный файл.
+     *
+     * @param array
+     * @param permutation
+     * @return
+     */
     private boolean nextPermutation(int[] array, List<Pair<Integer, Integer>> permutation) {
         int i = array.length - 1;
 

@@ -12,7 +12,7 @@ public class Main {
     private void run() throws IOException {
         this.cleanReport();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("g7.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("g9.txt"))) {
             String line = null;
             int i = 1;
             while ((line = reader.readLine()) != null) {
@@ -24,14 +24,14 @@ public class Main {
                 // @todo перепроверить, может переписать
                 graphReport.append("Было сгенерировано: ").append(graph.getStrView()).append('\n');
                 int[][] matrix = graph.getMatrix();
-                graphReport.append("Матрица смежности: ").append(Arrays.deepToString(matrix)).append('\n');
+                //graphReport.append("Матрица смежности: ").append(Arrays.deepToString(matrix)).append('\n');
                 List<Pair<Integer, Integer>> edges = graph.getEdges();
                 graphReport.append("Список ребер: ").append(edges).append('\n');
 
                 // Количество вершин графа
                 int n = graph.getVertexesSize();
-                graphReport.append("Количество вершин: ").append(n).append('\n');
 
+                // Максимальная степень вершин графа
                 int maxDegree = graph.getMaxDegree();
 
                 graphReport.append("~Результат~").append('\n');
@@ -71,8 +71,8 @@ public class Main {
                     if (error != null) {
                         graphReport.append(error).append('\n');
                     } else {
-                        graphReport.append(coloring.toString());
                         if (maxDegree == coloring.getColorSize() - 1) {
+                            graphReport.append(coloring.toString());
                             graphReport.append("!Проверить!").append('\n');
                         }
                     }
@@ -86,6 +86,10 @@ public class Main {
                 System.out.println(i++);
             }
         }
+    }
+
+    private void coloringGraph() {
+
     }
 
     /**
