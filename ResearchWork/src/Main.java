@@ -1,7 +1,10 @@
+import Graphs.Coloring;
+import Graphs.Graph;
 import javafx.util.Pair;
 
 import java.io.*;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -9,20 +12,43 @@ public class Main {
     }
 
     private void run() throws IOException {
-        this.cleanReport();
+        // Зона констант
+        int graphsPerFile = 10000;
+        // Окончание зоны
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("g7.txt"))) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите файл с данными:");
+        String fileWithGraphs = scanner.nextLine();
+        scanner.close();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileWithGraphs))) {
+            int passedGraphs = 0;
+            int indexFile = 0, passedGraphsForOneFile = 0;
+
             String line = null;
-            int i = 1;
+            String fileName = this.getReportFileName(indexFile);
+            this.cleanReport(fileName);
             while ((line = reader.readLine()) != null) {
-                PrintWriter out = new PrintWriter(new BufferedOutputStream(
-                        new FileOutputStream(new File("nir_report.txt"), true)));
+                PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(new File(fileName), true)));
 
-                Graph graph = new Graph(Utils.parseGraph(line), line.trim());
+                Graph graph = new Graph(this.parseGraph(line), line.trim());
                 out.print(this.coloringGraph(graph));
-                System.out.println(i++);
                 out.close();
+
+                System.out.println(passedGraphs + 1);
+                passedGraphs++;
+
+                passedGraphsForOneFile++;
+
+                if (passedGraphsForOneFile == graphsPerFile) {
+                    passedGraphsForOneFile = 0;
+                    fileName = this.getReportFileName(++indexFile);
+                    this.cleanReport(fileName);
+                }
             }
+        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+            System.out.println("Такой файл не был найден!");
         }
     }
 
@@ -96,9 +122,50 @@ public class Main {
      *
      * @throws FileNotFoundException
      */
-    private void cleanReport() throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter("nir_report.txt");
+    private void cleanReport(String fileName) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(fileName);
         writer.print("");
         writer.close();
+    }
+
+    private String getReportFileName(int indexFile) {
+        return "research_work_report_" + indexFile + ".txt";
+    }
+
+    /**
+     * Декодирование графа полученного из генератора
+     *
+     * @param strGraph
+     * @return
+     */
+    public int[][] parseGraph(String strGraph) {
+        StringBuilder stringBuilderMatrix = new StringBuilder();
+        for (int i = 1; i < strGraph.length(); i++) {
+            int number = this.parseChar(strGraph.charAt(i));
+
+            StringBuilder str = new StringBuilder();
+            str.append(Integer.toBinaryString(number));
+            while (str.length() < 6) {
+                str.reverse().append("0").reverse();
+            }
+
+            stringBuilderMatrix.append(str);
+        }
+        String stringMatrix = String.valueOf(stringBuilderMatrix);
+
+        int vertexes = this.parseChar(strGraph.charAt(0));
+        int[][] matrix = new int[vertexes][vertexes];
+        int index = 0;
+        for (int i = 1; i < vertexes; i++) {
+            for (int j = 0; j < i; j++, index++) {
+                matrix[i][j] = Integer.parseInt(stringMatrix.substring(index, index + 1));
+                matrix[j][i] = Integer.parseInt(stringMatrix.substring(index, index + 1));
+            }
+        }
+        return matrix;
+    }
+
+    private int parseChar(char c) {
+        return ((int) c) - 63;
     }
 }

@@ -1,3 +1,5 @@
+package Graphs;
+
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -14,12 +16,12 @@ public class Coloring {
 
     private String error = null;
 
-    Coloring(List<Integer> colors, Map<Pair<Integer, Integer>, Integer> colorsOfEdges) {
+    public Coloring(List<Integer> colors, Map<Pair<Integer, Integer>, Integer> colorsOfEdges) {
         this.colors = colors;
         this.colorsOfEdges = colorsOfEdges;
     }
 
-    Coloring() {
+    public Coloring() {
         this.colors = new ArrayList<>();
         this.colorsOfEdges = new HashMap<>();
     }

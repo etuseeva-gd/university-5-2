@@ -1,3 +1,5 @@
+package Graphs;
+
 import javafx.util.Pair;
 
 import java.io.*;
@@ -9,7 +11,7 @@ public class Graph {
     private List<Pair<Integer, Integer>> edges = new ArrayList<>();
     private int[][] matrix = null;
 
-    Graph(int[][] matrix, String strView) {
+    public Graph(int[][] matrix, String strView) {
         // Нужно для отладки и возможно последующего перезапуска программы
         this.strView = strView;
         this.matrix = matrix;
