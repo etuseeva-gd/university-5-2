@@ -12,9 +12,9 @@ public class Main {
     private void run() throws IOException {
         this.cleanReport();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("g5.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("g7.txt"))) {
             String line = null;
-            int i = 0;
+            int i = 1;
             while ((line = reader.readLine()) != null) {
                 Graph graph = new Graph(Utils.parseGraph(line), line.trim());
 
@@ -41,20 +41,6 @@ public class Main {
                     // Если граф кубический
                     graphReport.append("Это кубический граф!").append('\n');
                     graphReport.append(maxDegree).append('\n');
-                } else if (graph.isBigraph()) {
-                    // Если граф двудольный
-                    graphReport.append("Это двудольный граф!").append('\n');
-                    graphReport.append(maxDegree).append('\n');
-                }else if (graph.isCyclicGraph()) {
-                    // Если граф является циклом
-                    graphReport.append("Это циклический граф!").append('\n');
-                    if (n % 2 == 0) {
-                        // 2
-                        graphReport.append(2).append('\n');
-                    } else {
-                        // 3
-                        graphReport.append(3).append('\n');
-                    }
                 } else if (graph.isFullGraph()) {
                     // Если граф является полным
                     graphReport.append("Это полный граф!").append('\n');
@@ -64,6 +50,20 @@ public class Main {
                     } else {
                         // n
                         graphReport.append(n).append('\n');
+                    }
+                } else if (graph.isBigraph()) {
+                    // Если граф двудольный
+                    graphReport.append("Это двудольный граф!").append('\n');
+                    graphReport.append(maxDegree).append('\n');
+                } else if (graph.isCyclicGraph()) {
+                    // Если граф является циклом
+                    graphReport.append("Это циклический граф!").append('\n');
+                    if (n % 2 == 0) {
+                        // 2
+                        graphReport.append(2).append('\n');
+                    } else {
+                        // 3
+                        graphReport.append(3).append('\n');
                     }
                 } else {
                     Coloring coloring = graph.getColoring();

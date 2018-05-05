@@ -253,10 +253,7 @@ public class Graph {
      * @return
      */
     public boolean isCyclicGraph() {
-        return false;
-
-        // @todo Добавить проверку на связность
-        /*
+        // Проверить что все степени равны 2
         for (List<Integer> pairs : vertexes) {
             if (pairs.size() != 2) {
                 return false;
@@ -265,23 +262,17 @@ public class Graph {
 
         List<Integer> colors = new ArrayList<>(Collections.nCopies(vertexes.size(), 0));
 
-        for (int i = 0; i < vertexes.size(); i++) {
-            if (colors.get(i) == 0) {
-                colors.set(i, 1);
-                this.dfsForCyclicGraph(i, colors);
-            }
-        }
+        // Запустили dfs из 0 вершины
+        this.dfsForCyclicGraph(0, colors);
 
-        if (!this.hasCycle) {
-            return false;
-        }
-
+        // Проверяем связность (все вершины были посещены и их цвет не равен 0
         for (int i = 0; i < vertexes.size(); i++) {
             if (colors.get(i) == 0) {
                 return false;
             }
         }
-        return true;*/
+
+        return this.hasCycle;
     }
 
     /**
@@ -332,10 +323,8 @@ public class Graph {
     private void dfsForBigraph(int u, List<Integer> colors) {
         for (int i = 0; i < vertexes.get(u).size(); i++) {
             int v = vertexes.get(u).get(i);
-            System.out.println(u + " " + v);
             if (colors.get(v) == 0) {
                 colors.set(v, 3 - colors.get(u));
-                System.out.println(colors.get(v));
                 this.dfsForBigraph(v, colors);
             } else if (Objects.equals(colors.get(u), colors.get(v))) {
                 this.isBigraphFlag = false;
