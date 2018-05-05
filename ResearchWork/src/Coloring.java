@@ -33,8 +33,8 @@ public class Coloring {
     }
 
     public void setError(String error) {
-        this.colors = null;
-        this.colorsOfEdges = null;
+//        this.colors = null;
+//        this.colorsOfEdges = null;
 
         this.error = error;
     }
