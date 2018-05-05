@@ -24,6 +24,7 @@ public class Main {
 
         String fileWithGraphs = "g7.txt";
 
+        long startTime = System.currentTimeMillis();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileWithGraphs))) {
             int passedGraphs = 0;
             int indexFile = 0, passedGraphsForOneFile = 0;
@@ -53,6 +54,9 @@ public class Main {
 //            e.printStackTrace();
             System.out.println("Такой файл не был найден!");
         }
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("Программа отработала за " + (endTime - startTime) / 60000 + " мин.");
     }
 
     private StringBuilder coloringGraph(Graph graph) throws FileNotFoundException {
