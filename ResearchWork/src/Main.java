@@ -24,7 +24,6 @@ public class Main {
 
                 out.close();
             }
-
         }
     }
 
@@ -45,7 +44,6 @@ public class Main {
         // Максимальная степень вершин графа
         int maxDegree = graph.getMaxDegree();
 
-//        graphReport.append("~Результат~").append('\n');
         graphReport.append("Максимальная степень: ").append(maxDegree).append('\n');
         graphReport.append("Хроматический индекс: ");
         if (graph.isCubicGraph()) {
@@ -105,5 +103,3 @@ public class Main {
         writer.close();
     }
 }
-
-//GCZVRs
