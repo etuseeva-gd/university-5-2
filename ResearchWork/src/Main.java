@@ -22,7 +22,7 @@ public class Main {
         // String fileWithGraphs = scanner.nextLine();
         // scanner.close();
 
-        String fileWithGraphs = "g7.txt";
+        String fileWithGraphs = "g8.txt";
 
         long startTime = System.currentTimeMillis();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileWithGraphs))) {
@@ -108,6 +108,7 @@ public class Main {
             graphReport.append("Это циклический граф!").append('\n');
         } else {
             Coloring coloring = graph.getColoring();
+//            Coloring coloring = graph.getAnotherColoring();
             graphReport.append(coloring.getColorSize()).append('\n');
 
             if (maxDegree == coloring.getColorSize() - 1) {

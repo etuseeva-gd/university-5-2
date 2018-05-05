@@ -97,6 +97,12 @@ public class Graph {
         return minColoring;
     }
 
+    // @todo deprecated
+    public Coloring getAnotherColoring() {
+        List<Pair<Integer, Integer>> e = getPermutation();
+        return localColoring(e);
+    }
+
     /**
      * Берет следующую перестановку ребер.
      * Можно перенести в отдельный файл.
@@ -139,6 +145,26 @@ public class Graph {
         }
 
         return true;
+    }
+
+    // @todo deprecated
+    private List<Pair<Integer, Integer>> getPermutation() {
+        List<Pair<Integer,Integer>> edgesAmount = new ArrayList<>();
+        int i = 0;
+        for (Pair<Integer, Integer> edge : edges) {
+            int amount = vertexes.get(edge.getKey()).size() + vertexes.get(edge.getValue()).size();
+            edgesAmount.add(new Pair<>(i++, amount));
+        }
+
+        edgesAmount.sort((a, b) -> a.getValue() > b.getValue() ? -1 : Objects.equals(a.getValue(), b.getValue()) ? 0 : 1);
+        Collections.reverse(edgesAmount);
+
+        List<Pair<Integer, Integer>> updatedEdges = new ArrayList<>();
+        edgesAmount.forEach(pair -> {
+            updatedEdges.add(edges.get(pair.getKey()));
+        });
+
+        return updatedEdges;
     }
 
     /**
