@@ -16,10 +16,13 @@ public class Main {
         int graphsPerFile = 10000;
         // Окончание зоны
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите файл с данными:");
-        String fileWithGraphs = scanner.nextLine();
-        scanner.close();
+        // @todo раскоментить для работы
+        // Scanner scanner = new Scanner(System.in);
+        // System.out.println("Введите файл с данными:");
+        // String fileWithGraphs = scanner.nextLine();
+        // scanner.close();
+
+        String fileWithGraphs = "g7.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileWithGraphs))) {
             int passedGraphs = 0;
