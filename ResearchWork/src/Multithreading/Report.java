@@ -4,11 +4,13 @@ public class Report {
     private Integer numberOfFirstType = null;
     private Integer numberOfSecondType = null;
     private Integer numberOfNeedToCheck = null;
+    private Integer numberOfCurrentGraph = null;
 
     public Report() {
         this.numberOfFirstType = 0;
         this.numberOfSecondType = 0;
         this.numberOfNeedToCheck = 0;
+        this.numberOfCurrentGraph = 0;
     }
 
     public synchronized void incrementFirstType() {
@@ -21,6 +23,11 @@ public class Report {
 
     public synchronized void incrementNeedToCheck() {
         this.numberOfNeedToCheck++;
+    }
+
+    public synchronized void incrementCurrentGraph() {
+        this.numberOfCurrentGraph++;
+        System.out.println(this.numberOfCurrentGraph);
     }
 
     public Integer getNumberOfFirstType() {

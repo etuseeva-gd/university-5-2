@@ -19,16 +19,17 @@ public class ColoringGraphs implements Runnable {
 
     public void run() {
         // Зона констант
-        String threadName = Thread.currentThread().getName();
-        int graphsPerFile = 10000;
+        String threadName = Thread.currentThread().getName().toLowerCase();
+        int graphsPerFile = 5000;
         // Окончание зоны
-
         try {
             System.out.println("Начал работу поток: " + threadName);
 
             int indexFile = 0, passedGraphsForOneFile = 0;
             String fileName = this.getReportFileName(threadName, indexFile);
+
             this.cleanReport(fileName);
+            this.cleanReport(getNeedToCheckFileName());
 
             Graph graph;
             while (true) {
@@ -39,8 +40,10 @@ public class ColoringGraphs implements Runnable {
                     break;
                 }
 
+                report.incrementCurrentGraph();
+
                 PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(new File(getReportFileName(threadName, indexFile)), true)));
-                out.print(this.coloringGraph(graph));
+                out.print(this.getReport(graph));
                 out.close();
 
                 passedGraphsForOneFile++;
@@ -55,9 +58,11 @@ public class ColoringGraphs implements Runnable {
             System.out.println("Произошла ошибка!");
             System.out.println(threadName + " " + e.getMessage());
         }
+
+        System.out.println("Закончил работу поток: " + threadName);
     }
 
-    private StringBuilder coloringGraph(Graph graph) throws FileNotFoundException {
+    private StringBuilder getReport(Graph graph) throws FileNotFoundException {
         StringBuilder graphReport = new StringBuilder();
         graphReport.append("----------").append('\n');
 
@@ -107,11 +112,11 @@ public class ColoringGraphs implements Runnable {
             if (error != null) {
                 graphReport.append(error).append('\n');
                 hasError = true;
+                this.saveNeedToCheckGraph(graph.getStrView());
             }
         }
 
         this.updateReport(maxDegree, index, hasError);
-
         return graphReport;
     }
 
@@ -120,15 +125,23 @@ public class ColoringGraphs implements Runnable {
             this.report.incrementFirstType();
         } else if (!hasError) {
             this.report.incrementSecondType();
-            //вывести в файл?
         } else {
             this.report.incrementNeedToCheck();
-            //вывести в файл?
         }
+    }
+
+    private void saveNeedToCheckGraph(String graphView) throws FileNotFoundException {
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(new File(getNeedToCheckFileName()), true)));
+        out.print(graphView + "\n");
+        out.close();
     }
 
     private String getReportFileName(String threadName, int indexFile) {
         return "research_work_report_" + threadName + "_" + indexFile + ".txt";
+    }
+
+    private String getNeedToCheckFileName() {
+        return "need_to_check.txt";
     }
 
     /**
