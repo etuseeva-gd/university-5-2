@@ -101,7 +101,7 @@ public class Graph {
                 break;
             }
 
-            if (++i == 100000) {
+            if (++i == 1000000) {
                 // @todo добавить представление графа
                 minColoring.setError("Было прервано!");
                 break;

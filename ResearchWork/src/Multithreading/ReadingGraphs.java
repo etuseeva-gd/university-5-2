@@ -7,13 +7,16 @@ import java.util.concurrent.BlockingQueue;
 
 public class ReadingGraphs implements Runnable {
     private final BlockingQueue<Graph> queue;
+    // Имя файла в котором содержатся графы
+    private String fileWithGraphs = null;
 
-    public ReadingGraphs(BlockingQueue<Graph> queue) {
+    public ReadingGraphs(BlockingQueue<Graph> queue, String fileWithGraphs) {
         this.queue = queue;
+        this.fileWithGraphs = fileWithGraphs;
     }
 
     public void run() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("g9.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileWithGraphs))) {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 Graph graph = new Graph(this.parseGraph(line), line.trim());
@@ -23,6 +26,7 @@ public class ReadingGraphs implements Runnable {
             e.printStackTrace();
         }
 
+        // Чтобы потоки поняли что графы все закончились
         queue.add(new Graph(null));
     }
 

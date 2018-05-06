@@ -1,46 +1,49 @@
 import Graphs.Graph;
 import Multithreading.ColoringGraphs;
 import Multithreading.ReadingGraphs;
+import Multithreading.Report;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Solution {
-    public static void main(String[] args) throws InterruptedException, FileNotFoundException {
+    public static void main(String[] args) throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+
         BlockingQueue<Graph> queue = new LinkedBlockingQueue<Graph>();
+        Report report = new Report();
 
-        cleanReport("report.txt");
+        // @todo раскоментить для работы
+        // Scanner scanner = new Scanner(System.in);
+        // System.out.println("Введите файл с данными:");
+        // String fileWithGraphs = scanner.nextLine();
+        // scanner.close();
 
-        Thread production = new Thread(new ReadingGraphs(queue));
+        String fileWithGraphs = "g7.txt";
+        int numberOfThreads = 2;
 
-        Thread firstThread = new Thread(new ColoringGraphs(queue));
-        Thread secondThread = new Thread(new ColoringGraphs(queue));
-        Thread thirdThread = new Thread(new ColoringGraphs(queue));
+        Thread production = new Thread(new ReadingGraphs(queue, fileWithGraphs));
+
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < numberOfThreads; i++) {
+            threads.add(new Thread(new ColoringGraphs(queue, report)));
+        }
 
         production.start();
-        firstThread.start();
-        secondThread.start();
-        thirdThread.start();
+        for (int i = 0; i < numberOfThreads; i++) {
+            threads.get(i).start();
+        }
 
         production.join();
-        firstThread.join();
-        secondThread.join();
-        thirdThread.join();
+        for (int i = 0; i < numberOfThreads; i++) {
+            threads.get(i).join();
+        }
 
-        System.out.println("Done.");
-    }
-
-
-    /**
-     * Очищаем предыдущий файл с репортом.
-     *
-     * @throws FileNotFoundException
-     */
-    private static void cleanReport(String fileName) throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter(fileName);
-        writer.print("");
-        writer.close();
+        long endTime = System.currentTimeMillis();
+        long diff = endTime - startTime;
+        System.out.println("Программа отработала за " + (diff / 1000) + " сек. (" + (diff / 60000) + " мин.)");
+        System.out.println(report.toString());
     }
 }
