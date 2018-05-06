@@ -5,15 +5,15 @@ import Graphs.Graph;
 import java.io.*;
 import java.util.concurrent.BlockingQueue;
 
-public class PrepareGraphs implements Runnable {
+public class ReadingGraphs implements Runnable {
     private final BlockingQueue<Graph> queue;
 
-    public PrepareGraphs(BlockingQueue<Graph> queue) {
+    public ReadingGraphs(BlockingQueue<Graph> queue) {
         this.queue = queue;
     }
 
     public void run() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("g8.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("g9.txt"))) {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 Graph graph = new Graph(this.parseGraph(line), line.trim());
@@ -23,7 +23,7 @@ public class PrepareGraphs implements Runnable {
             e.printStackTrace();
         }
 
-        queue.add(new Graph(true));
+        queue.add(new Graph(null));
     }
 
     /**

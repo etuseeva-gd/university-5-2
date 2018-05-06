@@ -11,18 +11,20 @@ public class Graph {
     private List<Pair<Integer, Integer>> edges = new ArrayList<>();
     private int[][] matrix = null;
 
-    // для многопоточности
-    private Boolean isEmpty = false;
-
-    public Graph(boolean isEmpty) {
-        this.isEmpty = isEmpty;
+    /**
+     * Нужно для того чтобы прервать многопоточноть
+     * @param strView
+     */
+    public Graph(String strView) {
+        this.strView = strView;
     }
 
-    public Boolean getEmpty() {
-        return isEmpty;
-    }
-    // конец
-
+    /**
+     * Обычный конструктор
+     *
+     * @param matrix
+     * @param strView
+     */
     public Graph(int[][] matrix, String strView) {
         // Нужно для отладки и возможно последующего перезапуска программы
         this.strView = strView;

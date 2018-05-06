@@ -1,6 +1,6 @@
 import Graphs.Graph;
-import Multithreading.GraphRunnable;
-import Multithreading.PrepareGraphs;
+import Multithreading.ColoringGraphs;
+import Multithreading.ReadingGraphs;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -13,11 +13,11 @@ public class Solution {
 
         cleanReport("report.txt");
 
-        Thread production = new Thread(new PrepareGraphs(queue));
+        Thread production = new Thread(new ReadingGraphs(queue));
 
-        Thread firstThread = new Thread(new GraphRunnable(queue));
-        Thread secondThread = new Thread(new GraphRunnable(queue));
-        Thread thirdThread = new Thread(new GraphRunnable(queue));
+        Thread firstThread = new Thread(new ColoringGraphs(queue));
+        Thread secondThread = new Thread(new ColoringGraphs(queue));
+        Thread thirdThread = new Thread(new ColoringGraphs(queue));
 
         production.start();
         firstThread.start();

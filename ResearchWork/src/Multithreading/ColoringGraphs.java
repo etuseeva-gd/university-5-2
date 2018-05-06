@@ -8,23 +8,24 @@ import java.io.*;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-public class GraphRunnable implements Runnable {
+public class ColoringGraphs implements Runnable {
     private final BlockingQueue<Graph> queue;
 
-    public GraphRunnable(BlockingQueue<Graph> queue) {
+    public ColoringGraphs(BlockingQueue<Graph> queue) {
         this.queue = queue;
     }
 
     public void run() {
         try {
-            System.out.println("Start " + Thread.currentThread().getName());
+            //System.out.println("Start " + Thread.currentThread().getName());
+
             int i = 0;
             Graph graph;
             while (true) {
                 graph = queue.take();
 
-                if (graph.getEmpty()) {
-                    queue.add(new Graph(true));
+                if (graph.getStrView() == null) {
+                    queue.add(new Graph(null));
                     break;
                 }
 
@@ -41,7 +42,7 @@ public class GraphRunnable implements Runnable {
         }
     }
 
-    public StringBuilder coloringGraph(Graph graph) throws FileNotFoundException {
+    private StringBuilder coloringGraph(Graph graph) throws FileNotFoundException {
         StringBuilder graphReport = new StringBuilder();
         graphReport.append("----------").append('\n');
 
