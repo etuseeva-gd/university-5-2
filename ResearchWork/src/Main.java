@@ -5,6 +5,7 @@ import Multithreading.Report;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -16,12 +17,19 @@ public class Main {
         Report report = new Report();
 
         // @todo раскоментить для работы
-        // Scanner scanner = new Scanner(System.in);
-        // System.out.println("Введите файл с данными:");
-        // String fileWithGraphs = scanner.nextLine();
-        // scanner.close();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Введите файл с данными:");
+//        String fileWithGraphs = scanner.nextLine();
+//        System.out.println("Введите параметры в строку через пробел:");
+//        System.out.println("/f input.txt - файл со входными данными");
+//        System.out.println("/t - проверка типа");
+//        System.out.println("/h - проверка гипотезы");
+//        System.out.println("/t - подсчет треугольников");
+//        System.out.println("Пример: /f input.txt /t");
 
-        String fileWithGraphs = "g5.txt";
+//        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\graphs\\g10.txt";
+        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\g\\g10.16.txt";
+//        767264
         int numberOfThreads = 2;
 
         Thread production = new Thread(new ReadingGraphs(queue, fileWithGraphs));

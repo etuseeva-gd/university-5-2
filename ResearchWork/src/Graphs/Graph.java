@@ -2,7 +2,6 @@ package Graphs;
 
 import javafx.util.Pair;
 
-import java.io.*;
 import java.util.*;
 
 public class Graph {
@@ -11,8 +10,11 @@ public class Graph {
     private List<Pair<Integer, Integer>> edges = new ArrayList<>();
     private int[][] matrix = null;
 
+    private Map<Pair<Integer, Integer>, Set<Pair<Integer, Integer>>> edgesList = new HashMap<>();
+
     /**
      * Нужно для того чтобы прервать многопоточноть
+     *
      * @param strView
      */
     public Graph(String strView) {
@@ -47,10 +49,20 @@ public class Graph {
                 }
             }
         }
-    }
 
-    public List<List<Integer>> getVertexes() {
-        return vertexes;
+        edges.forEach(edge -> {
+            int u = edge.getKey(), v = edge.getValue();
+            Set<Pair<Integer, Integer>> neighborsEdges = new HashSet<>();
+            edges.forEach(locEdge -> {
+                if (edge != locEdge) {
+                    int uu = locEdge.getKey(), vv = locEdge.getValue();
+                    if (u == uu || v == vv || u == vv || v == uu) {
+                        neighborsEdges.add(locEdge);
+                    }
+                }
+            });
+            edgesList.put(edge, neighborsEdges);
+        });
     }
 
     public List<Pair<Integer, Integer>> getEdges() {
@@ -74,94 +86,6 @@ public class Graph {
         return vertexes.size();
     }
 
-    public Coloring getColoring() throws FileNotFoundException {
-        // Получаем максимальную степень вершины графа
-        int maxDegree = getMaxDegree();
-
-        // Получаем начальную перестановку
-        int[] indexes = new int[edges.size()];
-        for (int i = 0; i < indexes.length; i++) {
-            indexes[i] = i;
-        }
-        List<Pair<Integer, Integer>> permutationEdges = new ArrayList<>(edges);
-
-        Coloring minColoring = new Coloring();
-        int i = 0;
-        while (true) {
-            Coloring coloring = localColoring(permutationEdges);
-
-            int colorAmount = coloring.getColorSize();
-            if (i == 0 || minColoring.getColorSize() > colorAmount) {
-                minColoring = coloring;
-            }
-
-            if (!nextPermutation(indexes, permutationEdges) || colorAmount == maxDegree) {
-                // узнали что граф равен типу 1
-                // или что мы перебрали всевозможные варианты
-                break;
-            }
-
-            if (++i == 1000000) {
-                // @todo добавить представление графа
-                minColoring.setError("Было прервано!");
-                break;
-            }
-        }
-
-        return minColoring;
-    }
-
-    // @todo deprecated
-    public Coloring getAnotherColoring() {
-        List<Pair<Integer, Integer>> e = getPermutation();
-        return localColoring(e);
-    }
-
-    /**
-     * Берет следующую перестановку ребер.
-     * Можно перенести в отдельный файл.
-     *
-     * @param array
-     * @param permutation
-     * @return
-     */
-    private boolean nextPermutation(int[] array, List<Pair<Integer, Integer>> permutation) {
-        int i = array.length - 1;
-
-        while (i > 0 && array[i - 1] >= array[i]) {
-            i--;
-        }
-
-        if (i <= 0) {
-            return false;
-        }
-
-        int j = array.length - 1;
-        while (array[j] <= array[i - 1]) {
-            j--;
-        }
-
-        int temp = array[i - 1];
-        array[i - 1] = array[j];
-        array[j] = temp;
-
-        j = array.length - 1;
-        while (i < j) {
-            temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-            i++;
-            j--;
-        }
-
-        for (int k = 0; k < array.length; k++) {
-            permutation.set(k, edges.get(array[k]));
-        }
-
-        return true;
-    }
-
-    // @todo deprecated
     private List<Pair<Integer, Integer>> getPermutation() {
         List<Pair<Integer, Integer>> edgesAmount = new ArrayList<>();
         int i = 0;
@@ -178,7 +102,114 @@ public class Graph {
             updatedEdges.add(edges.get(pair.getKey()));
         });
 
+        Collections.reverse(updatedEdges);
+
         return updatedEdges;
+    }
+
+    private int stopper = 0;
+
+    /**
+     * Проверят является граф, графом типа 1
+     *
+     * @return
+     */
+    public boolean isFirstType() {
+        // @todo remove
+        this.stopper = 0;
+
+        int maxDegree = this.getMaxDegree();
+        int n = this.getVertexesSize();
+        int index;
+        if (isCubicGraph() || isBigraph()) {
+            index = maxDegree;
+        } else if (isFullGraph()) {
+            index = n % 2 == 0 ? n - 1 : n;
+        } else if (isCyclicGraph()) {
+            index = n % 2 == 0 ? 2 : 3;
+        } else {
+            Map<Pair<Integer, Integer>, Integer> used = new HashMap<>();
+            List<Pair<Integer, Integer>> edges = this.getPermutation();
+            index = this.coloringEdge(edges.get(0), maxDegree, used, edges) ? maxDegree : maxDegree + 1;
+        }
+
+        return maxDegree == index;
+    }
+
+    /**
+     * Пробует покрасить ребро в один из 0, ..., numberOfColors - 1 цветов
+     *
+     * @param edge
+     * @param numberOfColors
+     * @param used
+     * @param edges
+     * @return
+     */
+    private boolean coloringEdge(Pair<Integer, Integer> edge,
+                                 int numberOfColors,
+                                 Map<Pair<Integer, Integer>, Integer> used,
+                                 List<Pair<Integer, Integer>> edges) {
+        List<Integer> colors = this.getColor(edge, numberOfColors, used);
+        if (colors == null) {
+            stopper++;
+            return false;
+        }
+
+        for (Integer color : colors) {
+            used.put(edge, color);
+
+            Pair<Integer, Integer> nextEdge = this.getNextEdge(edge, edges);
+            if (nextEdge == null) {
+                return true;
+            }
+
+            boolean isOkColoring = this.coloringEdge(nextEdge, numberOfColors, used, edges);
+
+            //@todo remove
+            if (stopper > 100000000) {
+                return false;
+            }
+
+            if (!isOkColoring) {
+                used.remove(edge);
+            } else {
+                break;
+            }
+        }
+
+        return used.size() == edges.size();
+    }
+
+    private Pair<Integer, Integer> getNextEdge(Pair<Integer, Integer> edge, List<Pair<Integer, Integer>> edges) {
+        for (int i = 0; i < edges.size(); i++) {
+            if (edges.get(i).equals(edge) && i + 1 < edges.size()) {
+                return edges.get(i + 1);
+            }
+        }
+        return null;
+    }
+
+    private List<Integer> getColor(Pair<Integer, Integer> edge, int numberOfColors, Map<Pair<Integer, Integer>, Integer> used) {
+        Set<Pair<Integer, Integer>> neighborsEdges = edgesList.get(edge);
+        Set<Integer> usedColors = new HashSet<>();
+        for (Pair<Integer, Integer> locEdge : neighborsEdges) {
+            if (used.containsKey(locEdge)) {
+                usedColors.add(used.get(locEdge));
+            }
+        }
+
+        if (usedColors.size() == numberOfColors) {
+            return null;
+        }
+
+        List<Integer> colors = new ArrayList<>();
+        for (int i = 0; i < numberOfColors; i++) {
+            if (!usedColors.contains(i)) {
+                colors.add(i);
+            }
+        }
+
+        return colors;
     }
 
     /**
@@ -193,67 +224,6 @@ public class Graph {
             maxDegree = Math.max(maxDegree, endVertexes.size());
         }
         return maxDegree;
-    }
-
-    /**
-     * Окраска графа в "тупую". В том порядке в котором были
-     * поданы ребра
-     *
-     * @param edges
-     * @return
-     */
-    private Coloring localColoring(List<Pair<Integer, Integer>> edges) {
-        Map<Pair<Integer, Integer>, Integer> used = new HashMap<>();
-        edges.forEach(edge -> {
-            used.put(edge, -1);
-        });
-
-        List<Integer> colors = new ArrayList<>();
-        edges.forEach(edge -> {
-            if (used.get(edge) == -1) {
-                int v = edge.getKey(), u = edge.getValue();
-
-                Set<Integer> usedColors = new HashSet<>();
-                for (int i = 0; i < vertexes.get(v).size(); i++) {
-                    this.addColors(usedColors, used, i, v);
-                }
-                for (int i = 0; i < vertexes.get(u).size(); i++) {
-                    this.addColors(usedColors, used, i, u);
-                }
-
-                if (colors.size() == usedColors.size()) {
-                    Integer color = 0;
-                    if (colors.size() != 0) {
-                        color = colors.get(colors.size() - 1) + 1;
-                    }
-                    colors.add(color);
-                    used.put(edge, color);
-                } else {
-                    for (int color : colors) {
-                        if (!usedColors.contains(color)) {
-                            used.put(edge, color);
-                            break;
-                        }
-                    }
-                }
-            }
-        });
-
-        return new Coloring(colors, used);
-    }
-
-    // Фунция для добавления в множество usedColors уже использованные цвета.
-    private void addColors(Set<Integer> usedColors,
-                           Map<Pair<Integer, Integer>, Integer> used,
-                           int i, int v) {
-        Pair<Integer, Integer> e1 = new Pair<>(v, vertexes.get(v).get(i));
-        Pair<Integer, Integer> e2 = new Pair<>(vertexes.get(v).get(i), v);
-        if (used.containsKey(e1) && used.get(e1) != -1) {
-            usedColors.add(used.get(e1));
-        }
-        if (used.containsKey(e2) && used.get(e2) != -1) {
-            usedColors.add(used.get(e2));
-        }
     }
 
     /**
@@ -381,4 +351,42 @@ public class Graph {
             }
         }
     }
+
+    /**
+     * Возвращает количество треугольников, содержащихся в данном графе
+     *
+     * @return
+     */
+    public int getNumberOfTriangles() {
+        int numberOfTriangles = 0;
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (matrix[i][j] == 1) {
+                    for (int k = j + 1; k < n; k++) {
+                        if (matrix[j][k] == 1 && matrix[i][k] == 1) {
+                            numberOfTriangles++;
+                        }
+                    }
+                }
+            }
+        }
+        return numberOfTriangles;
+    }
+
+    /**
+     * Проверяет является ли данный граф регулярным
+     *
+     * @return
+     */
+    public boolean isRegularGraph() {
+        int degree = vertexes.get(0).get(0);
+        for (List<Integer> pairs : vertexes) {
+            if (degree != pairs.size()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

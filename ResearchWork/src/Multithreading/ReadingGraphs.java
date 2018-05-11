@@ -4,6 +4,7 @@ import Graphs.Graph;
 
 import java.io.*;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class ReadingGraphs implements Runnable {
     private final BlockingQueue<Graph> queue;
@@ -21,6 +22,10 @@ public class ReadingGraphs implements Runnable {
             while ((line = reader.readLine()) != null) {
                 Graph graph = new Graph(this.parseGraph(line), line.trim());
                 queue.put(graph);
+
+                while (queue.size() >= 100000) {
+                    TimeUnit.SECONDS.sleep(1);
+                }
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
