@@ -1,104 +1,58 @@
-import javafx.util.Pair;
+import Graphs.Graph;
+import Multithreading.ColoringGraphs;
+import Multithreading.ReadingGraphs;
+import Multithreading.Report;
 
-import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        new Main().run();
-    }
+    public static void main(String[] args) throws InterruptedException {
+        double startTime = System.currentTimeMillis();
 
-    private void run() throws IOException {
-        this.cleanReport();
+        BlockingQueue<Graph> queue = new LinkedBlockingQueue<Graph>();
+        Report report = new Report();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("g7.txt"))) {
-            String line = null;
-            int i = 1;
-            while ((line = reader.readLine()) != null) {
-                PrintWriter out = new PrintWriter(new BufferedOutputStream(
-                        new FileOutputStream(new File("nir_report.txt"), true)));
+        // @todo раскоментить для работы
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Введите файл с данными:");
+//        String fileWithGraphs = scanner.nextLine();
+//        System.out.println("Введите параметры в строку через пробел:");
+//        System.out.println("/f input.txt - файл со входными данными");
+//        System.out.println("/t - проверка типа");
+//        System.out.println("/h - проверка гипотезы");
+//        System.out.println("/t - подсчет треугольников");
+//        System.out.println("Пример: /f input.txt /t");
 
-                Graph graph = new Graph(Utils.parseGraph(line), line.trim());
-                out.print(this.coloringGraph(graph));
-                System.out.println(i++);
-                out.close();
-            }
-        }
-    }
+//        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\graphs\\g10.txt";
+        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\g\\g10.16.txt";
+//        767264
+        int numberOfThreads = 2;
 
-    private StringBuilder coloringGraph(Graph graph) throws FileNotFoundException {
-        StringBuilder graphReport = new StringBuilder();
-        graphReport.append("----------").append('\n');
+        Thread production = new Thread(new ReadingGraphs(queue, fileWithGraphs));
 
-        // @todo перепроверить, может переписать
-        graphReport.append("Было сгенерировано: ").append(graph.getStrView()).append('\n');
-        int[][] matrix = graph.getMatrix();
-        //graphReport.append("Матрица смежности: ").append(Arrays.deepToString(matrix)).append('\n');
-        List<Pair<Integer, Integer>> edges = graph.getEdges();
-        graphReport.append("Список ребер: ").append(edges).append('\n');
-
-        // Количество вершин графа
-        int n = graph.getVertexesSize();
-
-        // Максимальная степень вершин графа
-        int maxDegree = graph.getMaxDegree();
-
-        graphReport.append("Максимальная степень: ").append(maxDegree).append('\n');
-        graphReport.append("Хроматический индекс: ");
-        if (graph.isCubicGraph()) {
-            // Если граф кубический
-            graphReport.append(maxDegree).append('\n');
-            graphReport.append("Это кубический граф!").append('\n');
-        } else if (graph.isFullGraph()) {
-            // Если граф является полным
-            if (n % 2 == 0) {
-                // n - 1
-                graphReport.append(n - 1).append('\n');
-            } else {
-                // n
-                graphReport.append(n).append('\n');
-            }
-            graphReport.append("Это полный граф!").append('\n');
-        } else if (graph.isBigraph()) {
-            // Если граф двудольный
-            graphReport.append(maxDegree).append('\n');
-            graphReport.append("Это двудольный граф!").append('\n');
-        } else if (graph.isCyclicGraph()) {
-            // Если граф является циклом
-            if (n % 2 == 0) {
-                // 2
-                graphReport.append(2).append('\n');
-            } else {
-                // 3
-                graphReport.append(3).append('\n');
-            }
-            graphReport.append("Это циклический граф!").append('\n');
-        } else {
-            Coloring coloring = graph.getColoring();
-            graphReport.append(coloring.getColorSize()).append('\n');
-
-            if (maxDegree == coloring.getColorSize() - 1) {
-                graphReport.append(coloring.toString());
-                graphReport.append("!Проверить!").append('\n');
-            }
-
-            String error = coloring.getError();
-            if (error != null) {
-                graphReport.append(error).append('\n');
-            }
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < numberOfThreads; i++) {
+            threads.add(new Thread(new ColoringGraphs(queue, report)));
         }
 
-        return graphReport;
-    }
+        production.start();
+        for (int i = 0; i < numberOfThreads; i++) {
+            threads.get(i).start();
+        }
 
-    /**
-     * Очищаем предыдущий файл с репортом.
-     *
-     * @throws FileNotFoundException
-     */
-    private void cleanReport() throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter("nir_report.txt");
-        writer.print("");
-        writer.close();
+        production.join();
+        for (int i = 0; i < numberOfThreads; i++) {
+            threads.get(i).join();
+        }
+
+        double endTime = System.currentTimeMillis();
+        double diff = endTime - startTime;
+
+        System.out.println("Программа отработала за " + (diff / 1000) + " сек. (" + (diff / 60000) + " мин.)");
+        System.out.println(report.toString());
     }
 }
