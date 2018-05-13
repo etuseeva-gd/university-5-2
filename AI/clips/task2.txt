@@ -1,0 +1,57 @@
+1.В режиме командной строки создать список из 4-х
+упорядоченных фактов вида: (student <name> <kurs>).
+Просмотреть полученный список.
+
+(assert (student Anna 5)
+	(student Alexandr 3)
+	(student Elena 1)
+	(student Anastasiya 4))
+(facts)
+
+Изменить список фактов следующим образом:
+а) удалить факт f-2;
+
+(retract 2)
+(facts)
+
+б) изменить в факте f-3 значение <kurs>.
+
+(retract 3)
+(assert (student Elena 2) )
+(facts)
+
+--------------------------------------------
+
+2.В режиме командной строки создать три упорядоченных факта
+вида (poezd <номер> <пункт_назначения> <время_отправления>)
+с помощью конструктора deffacts.
+
+(deffacts poezda
+	(poezd 147 Moscow 15-35)
+	(poezd 009 Moscow 19-47)
+	(poezd 017 Saratov 20-05)
+)
+
+(reset)
+(facts)
+
+Добавить два новых факта, используя функцию assert.
+Просмотреть полученный список фактов.
+
+(assert (poezd 15 Kazan 03-15))
+(assert (poezd 168 St.Petersburg 04-47))
+(facts)
+
+
+Удалить факты с индексами 1,4.
+
+(retract 1 4)
+(facts)
+
+В фактах с индексами 2, 3 изменить время отправления.
+
+(retract 2)
+(assert (poezd 9 Moscow 21-05))
+(retract 3)
+(assert (poezd 17 Saratov 15-16))
+(facts)

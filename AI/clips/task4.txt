@@ -1,0 +1,62 @@
+1. С  помощью  deffacts создайте список из 5 упорядоченных фактов вида:
+(sotrudnik <фамилия> <стаж работы> <кол-во детей> <оклад>)
+
+(deffacts list
+      (sotrudnik Shafeeva 15 2 25000)
+      (sotrudnik Bogomolova 7 1 17000)
+      (sotrudnik Tuseeva 9 3 21500)
+      (sotrudnik Rybalko 30 1 35000)
+      (sotrudnik Frolov 25 0 24500)
+)
+
+Определите следующие  правила:
+1)начисления премии тем сотрудникам, у которых стаж работы не менее
+5 лет или более 2-х детей. В результате выполнения правила должны быть
+добавлены факты вида: (premia < фамилия > <сумма премии>).
+Премия вычисляется в  размере 20% от оклада.
+
+(defrule take
+	(sotrudnik ?name ?years ?child ?z)
+	(test (or (> ?years 4) (> ?child 1)))
+=>
+	(assert(premia ?name (* 0.2 ?z)))
+)
+
+2)Определяющее,  все ли сотрудники получили премию. В результате
+выполнения правила должно выводиться соответствующее сообщение.
+
+(defrule premia_numb
+      (sotrudnik ?name ?years ?child ?z)
+      (test (or (> ?years 4) (> ?child 1)))
+=>
+      (assert (poluchil ?name))
+)
+
+(defrule all_premia
+      (forall (sotrudnik ?name ?years ?child ?z)
+      	(poluchil ?name))
+=>
+      (printout t " vse sotrudniki poluchili premiu!" crlf)
+)
+
+3)Определяющее, есть ли среди сотрудников ветераны труда
+( ветераном труда считается сотрудник, у которого стаж работы более
+20 лет). В результате выполнения правила должно выводиться
+соответствующее сообщение.
+
+(defrule v
+	(sotrudnik ?name ?years ?child ?z)
+	(test (> ?years 20))
+=>
+	(assert(veteran ?name))
+)
+
+(defrule ex_v
+      (exists (veteran ?name))
+=>
+      (printout t " veterany truda est!" crlf)
+)
+
+(reset)
+(run)
+(facts)

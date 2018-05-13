@@ -1,0 +1,44 @@
+1. Создать правило zachisl, которое запрашивает количество студентов,
+вводит ФИО каждого и добавляет факты вида (student  <фамилия>  1).
+
+(defrule zachisl
+  =>
+     (printout t "n=" )
+     (bind ?n (read))
+     (loop-for-count ?n do
+           (printout t "Second name:" )
+           (bind ?name (readline))
+           (assert (student ?name 1))
+      )
+)
+
+3. Создать правило factorial для вычисления n!
+
+(defrule prostoe
+  =>
+   (printout t "n=")
+   (bind ?n (read))
+   (bind ?s 1)
+   (loop-for-count (?i 1 ?n) do
+   	(bind ?s (* ?s ?i))
+    )
+  (printout t "n!=" ?s crlf)
+)
+
+6. Создать правило nod для нахождения наибольшего общего
+делителя двух натуральных чисел.
+
+(defrule nod
+  =>
+   (printout t "a=")
+   (bind ?a (read))
+   (printout t "b=")
+   (bind ?b (read))
+   (while (<> ?a ?b) do
+	(if (> ?a ?b) then
+		(bind ?a (- ?a ?b))
+	else (bind ?b (- ?b ?a))
+	)
+   )
+  (printout t "nod=" ?a crlf)
+)

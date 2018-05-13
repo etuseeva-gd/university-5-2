@@ -28,9 +28,8 @@ public class Main {
 //        System.out.println("Пример: /f input.txt /t");
 
 //        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\graphs\\g10.txt";
-        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\g\\g10.16.txt";
-//        767264
-        int numberOfThreads = 2;
+        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\g\\g10.23.txt";
+        int numberOfThreads = 3;
 
         Thread production = new Thread(new ReadingGraphs(queue, fileWithGraphs));
 
