@@ -3,7 +3,7 @@
      (printout t "n =" )
      (bind ?n (read))                                     
      (loop-for-count ?n do                           
-           (printout t "Second name: " )
+           (printout t "Фамилия = " )
            (bind ?name (readline))                   
            (assert (student ?name 1))           
       )         
