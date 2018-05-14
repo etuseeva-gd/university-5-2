@@ -2,10 +2,10 @@
 упорядоченных фактов вида: (student <name> <kurs>).
 Просмотреть полученный список.
 
-(assert (student Anna 5)
-	(student Alexandr 3)
-	(student Elena 1)
-	(student Anastasiya 4))
+(assert (student Kolya 5)
+	(student Vasya 3)
+	(student Alesha 1)
+	(student Mark 4))
 (facts)
 
 Изменить список фактов следующим образом:
@@ -17,7 +17,7 @@
 б) изменить в факте f-3 значение <kurs>.
 
 (retract 3)
-(assert (student Elena 2) )
+(assert (student Alesha 2) )
 (facts)
 
 --------------------------------------------
