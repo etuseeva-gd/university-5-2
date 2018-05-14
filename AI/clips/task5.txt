@@ -3,7 +3,7 @@
 
 (defrule zachisl
   =>
-     (printout t "n=" )
+     (printout t "n = " )
      (bind ?n (read))
      (loop-for-count ?n do
            (printout t "Second name:" )
@@ -16,13 +16,13 @@
 
 (defrule prostoe
   =>
-   (printout t "n=")
+   (printout t "n = ")
    (bind ?n (read))
    (bind ?s 1)
    (loop-for-count (?i 1 ?n) do
    	(bind ?s (* ?s ?i))
     )
-  (printout t "n!=" ?s crlf)
+  (printout t "n! = " ?s crlf)
 )
 
 6. Создать правило nod для нахождения наибольшего общего
@@ -30,9 +30,9 @@
 
 (defrule nod
   =>
-   (printout t "a=")
+   (printout t "a = ")
    (bind ?a (read))
-   (printout t "b=")
+   (printout t "b = ")
    (bind ?b (read))
    (while (<> ?a ?b) do
 	(if (> ?a ?b) then
@@ -40,5 +40,5 @@
 	else (bind ?b (- ?b ?a))
 	)
    )
-  (printout t "nod=" ?a crlf)
+  (printout t "GCD(a, b) = " ?a crlf)
 )
