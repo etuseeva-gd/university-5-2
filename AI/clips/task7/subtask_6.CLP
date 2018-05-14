@@ -5,7 +5,7 @@
 	(bind ?s1 (sub-string (+ (- ?n ?i) 1) (+ (- ?n ?i) 1) ?str))   
 	(bind ?s (str-cat ?s ?s1))                                    
     )
-    (printout t "reverse str=" ?s crlf)
+    (printout t "Зеркальное отражение = " ?s crlf)
 )
 
 (defrule substr_zamena

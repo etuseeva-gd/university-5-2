@@ -1,8 +1,8 @@
 (defrule nod 
   =>
-   (printout t "a=")   
+   (printout t "a = ")
    (bind ?a (read)) 
-   (printout t "b=")   
+   (printout t "b = ")
    (bind ?b (read))                             
    (while (<> ?a ?b) do
 	(if (> ?a ?b) then
@@ -10,5 +10,5 @@
 	else (bind ?b (- ?b ?a))
 	)                              
    )
-  (printout t "nod=" ?a crlf)                 
+  (printout t "nod(a, b) = " ?a crlf)
 )

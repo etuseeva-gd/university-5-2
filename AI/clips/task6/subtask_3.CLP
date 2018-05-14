@@ -9,11 +9,11 @@
 
 (defrule ans
 =>
-(printout t "x=") 
+(printout t "x = ")
 (bind ?x (read))
-(printout t "c=")
+(printout t "c = ")
 (bind ?c (read))
-(printout t "d=") 
+(printout t "d = ")
 (bind ?d (read))
 (bind ?y (func ?x ?c ?d)) 
 (printout t "y=" ?y crlf) 

@@ -9,17 +9,17 @@
 
 (defrule sravn
 =>
-(printout t "a1=") 
+(printout t "a1 = ")
 (bind ?a1 (read))
-(printout t "b1=")
+(printout t "b1 = ")
 (bind ?b1 (read))
-(printout t "c1=") 
+(printout t "c1 = ")
 (bind ?c1 (read))
-(printout t "a2=")
+(printout t "a2 = ")
 (bind ?a2 (read))
-(printout t "b2=") 
+(printout t "b2 = ")
 (bind ?b2 (read))
-(printout t "c2=")
+(printout t "c2 = ")
 (bind ?c2 (read))
 (bind ?s1 (s ?a1 ?b1 ?c1)) 
 (bind ?s2 (s ?a2 ?b2 ?c2))

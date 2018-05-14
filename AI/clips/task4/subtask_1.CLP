@@ -1,9 +1,9 @@
 (deffacts list
-      (sotrudnik Shafeeva 15 2 25000)
-      (sotrudnik Bogomolova 7 1 17000)
-      (sotrudnik Tuseeva 9 3 21500)
-      (sotrudnik Rybalko 30 1 35000)
-      (sotrudnik Frolov 25 0 24500)
+      (sotrudnik Ivanov 15 2 25000)
+      (sotrudnik Smirmov 7 1 17000)
+      (sotrudnik Stepanov 9 3 21500)
+      (sotrudnik Petrov 30 1 35000)
+      (sotrudnik Sidorov 25 0 24500)
 )
 
 (defrule take

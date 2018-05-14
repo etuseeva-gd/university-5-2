@@ -5,8 +5,8 @@
 )
 (defrule func_sum
  =>  
-  (printout t "n=")
+  (printout t "n = ")
   (bind ?n (read))                             
   (bind ?s (sum ?n))                       
-  (printout t "sum=" ?s crlf) 
+  (printout t "sum = " ?s crlf)
 )

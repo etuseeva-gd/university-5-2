@@ -19,5 +19,5 @@
 	(printout t "symb2=")
 	(bind ?symb2 (read))
 	(bind ?str (str-zam ?str ?symb1 ?symb2))
-	(printout t "str=" ?str crlf)
+	(printout t "Результат = " ?str crlf)
 )
