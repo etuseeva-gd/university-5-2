@@ -10,7 +10,7 @@
 
 (defrule substr_zamena
     =>
-	(printout t "str=")
+	(printout t "Строчка = ")
 	(bind ?str (read))    
 	(bind ?str (str-rev ?str))
 )

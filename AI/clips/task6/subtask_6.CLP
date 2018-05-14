@@ -8,5 +8,5 @@
   (printout t "n = ")
   (bind ?n (read))                             
   (bind ?s (sum ?n))                       
-  (printout t "sum = " ?s crlf)
+  (printout t "Сумма = " ?s crlf)
 )

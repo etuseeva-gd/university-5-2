@@ -12,11 +12,11 @@
 
 (defrule substr_zamena
     =>
-	(printout t "str=")
+	(printout t "Строчка = ")
 	(bind ?str (read))
-	(printout t "symb1=")
+	(printout t "Символ, который заменить = ")
 	(bind ?symb1 (read))
-	(printout t "symb2=")
+	(printout t "Символ на который заменить = ")
 	(bind ?symb2 (read))
 	(bind ?str (str-zam ?str ?symb1 ?symb2))
 	(printout t "Результат = " ?str crlf)
