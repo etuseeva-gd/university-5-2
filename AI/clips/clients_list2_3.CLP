@@ -1,0 +1,5 @@
+(initial-fact)
+(client (name Anastasiya) (in 3) (citi Saratov))
+(client (name Anna) (in 1) (citi Moscow))
+(client (name Marina) (in 2) (citi Saratov))
+(client (name Anastasiya) (in 4) (citi Saratov))
