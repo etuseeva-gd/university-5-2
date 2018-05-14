@@ -14,7 +14,7 @@
 
 3. Создать правило factorial для вычисления n!
 
-(defrule prostoe
+(defrule factorial
   =>
    (printout t "n = ")
    (bind ?n (read))
@@ -40,5 +40,5 @@
 	else (bind ?b (- ?b ?a))
 	)
    )
-  (printout t "GCD(a, b) = " ?a crlf)
+  (printout t "nod(a, b) = " ?a crlf)
 )

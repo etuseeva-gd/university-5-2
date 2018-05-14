@@ -1,17 +1,10 @@
-Правила
-(deftemplate client
-	(slot name)
-	(slot in)
-	(slot citi (default Saratov))
-)
-
 1.
 А) Создать файл, содержащий три неупорядоченных факта вида
 (client (name <фамилия>) (in <инд.номер>) (citi <город проживания>)).
 Значений слота citi задать по умолчанию.
 Загрузить данные факты.
 
-(load-facts init_list_3.CLP)
+(load-facts init_list.CLP)
 (facts)
 
 В факте с индексом 1 изменить значение слота citi,
@@ -28,11 +21,11 @@
 
 Сохранить полученный список фактов.
 
-(save-facts list_2_3.CLP)
+(save-facts list_2.CLP)
 
 Б) Загрузить полученный список фактов.
 
-(load-facts list_2_3.CLP)
+(load-facts list_2.CLP)
 (facts)
 
 Добавить 2 новых неупорядоченных факта вида, используя функцию assert.
@@ -49,4 +42,4 @@
 
 Сохранить полученный список фактов в другой файл.
 
-(save-facts list_3_3.CLP)
+(save-facts list_3.CLP)

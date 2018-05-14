@@ -42,7 +42,6 @@
 (assert (poezd 168 St.Petersburg 04-47))
 (facts)
 
-
 Удалить факты с индексами 1,4.
 
 (retract 1 4)

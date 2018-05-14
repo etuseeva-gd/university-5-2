@@ -24,7 +24,7 @@
       (forall (sotrudnik ?name ?years ?child ?z)
       	(poluchil ?name))               
 =>
-      (printout t " vse sotrudniki poluchili premiu!" crlf)
+      (printout t "Все сотрудники получили премию!" crlf)
 )
 
 (defrule v
@@ -37,5 +37,5 @@
 (defrule ex_v
       (exists (veteran ?name))           
 =>
-      (printout t " veterany truda est!" crlf)
+      (printout t "Ветераны труда есть!" crlf)
 )
