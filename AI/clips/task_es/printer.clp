@@ -18,8 +18,6 @@ then TRUE
 else FALSE) 
 ) 
 
-;;;***************************************************************** 
-
 (defrule determine-printer-state "" 
 (not (working-state printer ?)) 
 (not (repair ?)) 
@@ -98,7 +96,6 @@ then (assert (repair "Заправьте чернила."))
 else (assert (ink work))) 
 ) 
 
-
 (defrule determine-paper "" 
 (switchOn work) 
 (print does-not-work) 
@@ -111,7 +108,6 @@ then (assert (paper work))
 else (assert (repair "Заправьте бумагу в принтер.")) 
 (assert (paper does-not-work))) 
 ) 
-
 
 (defrule determine-cover "" 
 (switchOn work) 
@@ -154,8 +150,6 @@ then (assert (repair "Почистите картридж."))
 else (assert (clear does-not-need))) 
 ) 
 
-;;;***************************************************************** 
-
 (defrule normal-printer-state-conclusions "" 
 (declare (salience 10)) 
 (working-state printer normal) ; Если принтер работает нормально 
@@ -168,7 +162,6 @@ else (assert (clear does-not-need)))
 (assert (paper work)) ; есть бумага 
 (assert (ink work))) ; есть чернила 
 
-
 (defrule unsatisfactory-printer-state-conclusions "" 
 (declare (salience 10)) 
 ; Если принтер работает неудовлетворительно 
@@ -177,9 +170,6 @@ else (assert (clear does-not-need)))
 => 
 (assert (power work)) ; на принтер подано питание 
 ) 
-
-
-;;;***************************************************************** 
 
 (defrule no-repairs "" 
 (declare (salience -10)) 
