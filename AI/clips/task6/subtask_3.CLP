@@ -16,5 +16,5 @@
 (printout t "d = ")
 (bind ?d (read))
 (bind ?y (func ?x ?c ?d)) 
-(printout t "y=" ?y crlf) 
+(printout t "y = " ?y crlf)
 )

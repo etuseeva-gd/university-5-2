@@ -9,12 +9,14 @@
 
 (defrule sravn
 =>
+(printout t "Первый треугольник: ")
 (printout t "a1 = ")
 (bind ?a1 (read))
 (printout t "b1 = ")
 (bind ?b1 (read))
 (printout t "c1 = ")
 (bind ?c1 (read))
+(printout t "Второй треугольник: ")
 (printout t "a2 = ")
 (bind ?a2 (read))
 (printout t "b2 = ")
