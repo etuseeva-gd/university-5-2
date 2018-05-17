@@ -4,11 +4,11 @@
 Значений слота citi задать по умолчанию.
 Загрузить данные факты.
 
-(load-facts clients_list_3.CLP)
+(load-facts init_list.CLP)
 (facts)
 
 В факте с индексом 1 изменить значение слота citi,
-а  в факте с индексом 2 изменить фамилию.
+а в факте с индексом 2 изменить фамилию.
 
 (modify 1 (citi Moscow))
 (modify 2 (name Marina))
@@ -21,11 +21,11 @@
 
 Сохранить полученный список фактов.
 
-(save-facts clients_list2_3.CLP)
+(save-facts list_2.CLP)
 
 Б) Загрузить полученный список фактов.
 
-(load-facts clients_list2_3.CLP)
+(load-facts list_2.CLP)
 (facts)
 
 Добавить 2 новых неупорядоченных факта вида, используя функцию assert.
@@ -42,4 +42,4 @@
 
 Сохранить полученный список фактов в другой файл.
 
-(save-facts clients_list3_3.CLP)
+(save-facts list_3.CLP)
