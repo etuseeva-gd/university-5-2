@@ -389,4 +389,17 @@ public class Graph {
         return true;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Graph G {");
+        for (int i = 0; i < vertexes.size(); i++) {
+            stringBuilder.append(i).append(" ");
+        }
+        edges.forEach(edge -> {
+            stringBuilder.append(edge.getKey()).append("--").append(edge.getValue()).append(";");
+        });
+        stringBuilder.append("}\n");
+        return String.valueOf(stringBuilder);
+    }
 }

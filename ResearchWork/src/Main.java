@@ -18,18 +18,20 @@ public class Main {
 
         // @todo раскоментить для работы
 //        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Введите файл с данными:");
+//        System.out.println("Введите путь к файлу с данными:");
 //        String fileWithGraphs = scanner.nextLine();
-//        System.out.println("Введите параметры в строку через пробел:");
-//        System.out.println("/f input.txt - файл со входными данными");
-//        System.out.println("/t - проверка типа");
-//        System.out.println("/h - проверка гипотезы");
-//        System.out.println("/t - подсчет треугольников");
-//        System.out.println("Пример: /f input.txt /t");
+//        System.out.println("Введите количество потоков:");
+//        int numberOfThreads = Integer.parseInt(scanner.nextLine());
+//        System.out.println("Вы хотите сохранять файлы класса 1 и 2 в разные файлы? (Y/N)");
+//        String answer = scanner.nextLine();
+//        if (answer.equals("Y")) {
+//
+//        }
 
 //        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\graphs\\g10.txt";
-        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\g\\g10.23.txt";
-        int numberOfThreads = 3;
+        String fileWithGraphs = "C:\\Users\\lenok\\Desktop\\УНИВЕР\\g\\g10.20.txt";
+//        String fileWithGraphs = "g0.txt";
+        int numberOfThreads = 1;
 
         Thread production = new Thread(new ReadingGraphs(queue, fileWithGraphs));
 

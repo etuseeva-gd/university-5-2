@@ -23,10 +23,8 @@ public class ColoringGraphs implements Runnable {
             System.out.println("Начал работу поток: " + threadName);
 
             int indexFile = 0, passedGraphsForOneFile = 0;
-//            String fileName = this.getReportFileName(threadName, indexFile);
-//            this.cleanReport(fileName);
-
-
+            String fileName = this.getReportFileName(threadName, indexFile);
+            this.cleanReport(fileName);
 
             Graph graph;
             while (true) {
@@ -41,9 +39,9 @@ public class ColoringGraphs implements Runnable {
 
                 StringBuilder report = this.getReport(graph);
 
-//                PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(new File(getReportFileName(threadName, indexFile)), true)));
-//                out.print(report);
-//                out.close();
+                PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(new File(getReportFileName(threadName, indexFile)), true)));
+                out.print(report);
+                out.close();
 
                 passedGraphsForOneFile++;
 
@@ -72,11 +70,14 @@ public class ColoringGraphs implements Runnable {
         boolean isFirstType = graph.isFirstType();
         if (isFirstType) {
             this.report.incrementFirstType();
-            graphReport.append(graph.getStrView()).append("\n");
+//            graphReport.append(graph.getStrView()).append("\n");
         } else {
             this.report.incrementSecondType();
         }
-        //graphReport.append(isFirstType ? "ТИП 1" : "ТИП 2").append('\n');
+        if (!isFirstType) {
+            graphReport.append(graph.toString());
+        }
+//        graphReport.append(isFirstType ? "ТИП 1" : "ТИП 2").append('\n');
 
         // @todo не всегда нужно
         if (!isFirstType) {

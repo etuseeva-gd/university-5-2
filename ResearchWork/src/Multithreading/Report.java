@@ -72,11 +72,12 @@ public class Report {
     public String toString() {
         StringBuilder strReport = new StringBuilder();
         strReport.append("Количество графов:").append("\n")
-                .append("Типа 1: ").append(this.getNumberOfFirstType()).append("\n")
-                .append("Типа 2: ").append(this.getNumberOfSecondType()).append("\n")
-                .append("Не выполняется гипотеза для: ").append(this.getNotCompleteChetwyndHilton().size()).append("\n")
-                .append("Треугольники тип 1: ").append(this.getNumberOfTrianglesOfFirstType()).append("\n")
-                .append("Треугольники тип 2: ").append(this.getNumberOfTrianglesOfSecondType()).append("\n");
+                .append("  Класса 1: ").append(this.getNumberOfFirstType()).append("\n")
+                .append("  Класса 2: ").append(this.getNumberOfSecondType()).append("\n")
+                .append("Кол-во треугольнов для:").append("\n")
+                .append("  Класса 1: ").append(this.getNumberOfTrianglesOfFirstType()).append("\n")
+                .append("  Класса 2: ").append(this.getNumberOfTrianglesOfSecondType()).append("\n")
+                .append("Кол-во графов для который не выполняется гипотеза = ").append(this.getNotCompleteChetwyndHilton().size()).append("\n");
         return String.valueOf(strReport);
     }
 }
